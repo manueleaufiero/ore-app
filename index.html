@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Ore Benedetta</title>
+  <style>
+  :root {
+    --blu: #1a5fb4; --blu-scuro: #144a8c; --verde: #2d8a4e; --rosso: #c0392b; --giallo: #b7791f; --grigio: #6b7280;
+    --sfondo: #f3f4f6; --carta: #ffffff; --bordo: #e5e7eb; --testo: #111827; --testo2: #4b5563;
+    --campo: #ffffff; --campo-bordo: #cbd5e1; --tenue: #eef2ff; --stima-fondo: #f0f9ff; --stima-bordo: #7dd3fc;
+    --et-aperto: #ecfdf5; --et-aperto-t: #065f46; --et-appr: #fef3c7; --et-appr-t: #92400e; --et-approvato: #dbeafe; --et-approvato-t: #1e40af;
+    --et-pagato: #ede9fe; --et-pagato-t: #5b21b6; --et-chiuso: #e5e7eb; --et-chiuso-t: #374151; --et-rosso: #fee2e2; --et-rosso-t: #991b1b;
+    --avv: #fff7ed; --avv-b: #fed7aa; --avv-t: #9a3412; --avv-rosso: #fef2f2; --avv-rosso-b: #fecaca; --avv-verde: #ecfdf5; --avv-verde-b: #a7f3d0; --avv-blu: #eff6ff; --avv-blu-b: #bfdbfe; --avv-blu-t: #1e3a8a;
+    --ombra: rgba(0,0,0,.04); --velo: rgba(17,24,39,.55);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --blu: #4f8fe0; --blu-scuro: #a8c8f5; --verde: #3fa96a; --rosso: #e26b5e; --giallo: #d9a441; --grigio: #9aa3b2;
+      --sfondo: #111827; --carta: #1f2937; --bordo: #374151; --testo: #f3f4f6; --testo2: #cbd5e1;
+      --campo: #111827; --campo-bordo: #4b5563; --tenue: #1e2a44; --stima-fondo: #0f2740; --stima-bordo: #2b6cb0;
+      --et-aperto: #064e3b; --et-aperto-t: #a7f3d0; --et-appr: #78350f; --et-appr-t: #fde68a; --et-approvato: #1e3a8a; --et-approvato-t: #bfdbfe;
+      --et-pagato: #4c1d95; --et-pagato-t: #ddd6fe; --et-chiuso: #374151; --et-chiuso-t: #e5e7eb; --et-rosso: #7f1d1d; --et-rosso-t: #fecaca;
+      --avv: #3b2a12; --avv-b: #92400e; --avv-t: #fdba74; --avv-rosso: #3f1515; --avv-rosso-b: #991b1b; --avv-verde: #0f3b2a; --avv-verde-b: #065f46; --avv-blu: #152a4a; --avv-blu-b: #1e40af; --avv-blu-t: #bfdbfe;
+      --ombra: rgba(0,0,0,.4); --velo: rgba(0,0,0,.65);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --blu: #4f8fe0; --blu-scuro: #a8c8f5; --verde: #3fa96a; --rosso: #e26b5e; --giallo: #d9a441; --grigio: #9aa3b2;
+    --sfondo: #111827; --carta: #1f2937; --bordo: #374151; --testo: #f3f4f6; --testo2: #cbd5e1;
+    --campo: #111827; --campo-bordo: #4b5563; --tenue: #1e2a44; --stima-fondo: #0f2740; --stima-bordo: #2b6cb0;
+    --et-aperto: #064e3b; --et-aperto-t: #a7f3d0; --et-appr: #78350f; --et-appr-t: #fde68a; --et-approvato: #1e3a8a; --et-approvato-t: #bfdbfe;
+    --et-pagato: #4c1d95; --et-pagato-t: #ddd6fe; --et-chiuso: #374151; --et-chiuso-t: #e5e7eb; --et-rosso: #7f1d1d; --et-rosso-t: #fecaca;
+    --avv: #3b2a12; --avv-b: #92400e; --avv-t: #fdba74; --avv-rosso: #3f1515; --avv-rosso-b: #991b1b; --avv-verde: #0f3b2a; --avv-verde-b: #065f46; --avv-blu: #152a4a; --avv-blu-b: #1e40af; --avv-blu-t: #bfdbfe;
+    --ombra: rgba(0,0,0,.4); --velo: rgba(0,0,0,.65);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--sfondo); color: var(--testo); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.4; }
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--blu); }
+  #app { max-width: 560px; margin: 0 auto; }
+  #testata { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--blu); color: #fff; padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; justify-content: space-between; }
+  #testata h1 { font-size: 18px; margin: 0; font-weight: 700; letter-spacing: .2px; }
+  #testata .utente { font-size: 13px; opacity: .95; text-align: right; line-height: 1.2; }
+  #testata .utente b { display: block; font-size: 14px; }
+  #contenuto { padding: 12px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); }
+  .scheda { display: none; }
+  .scheda.attiva { display: block; }
+  .carta { background: var(--carta); border: 1px solid var(--bordo); border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 2px var(--ombra); }
+  .carta h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .4px; color: var(--testo2); margin: 0 0 8px; font-weight: 700; }
+  .carta h3 { font-size: 17px; margin: 0 0 6px; }
+  .titolo-grande { font-size: 22px; font-weight: 700; margin: 2px 0 2px; }
+  .sotto { color: var(--testo2); font-size: 14px; }
+  .mut { color: var(--grigio); font-size: 14px; }
+  .btn { display: block; width: 100%; min-height: 52px; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--bordo); background: var(--carta); color: var(--testo); font-size: 17px; font-weight: 600; cursor: pointer; text-align: center; margin-top: 10px; font-family: inherit; }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .btn.caricamento { opacity: .7; pointer-events: none; }
+  .btn.caricamento::after { content: " …"; }
+  .btn-primario { background: var(--blu); border-color: var(--blu); color: #fff; }
+  a.btn { text-decoration: none; box-sizing: border-box; line-height: 1.25; }
+  .btn-whatsapp { background: #25d366; border-color: #25d366; color: #fff; }
+  .ferie-riga { padding: 10px 14px; }
+  .ferie-riga .kv { margin: 0; }
+  .btn-whatsapp .spiega { color: rgba(255,255,255,.9); }
+  .anteprima-wa { white-space: pre-wrap; background: var(--sfondo); border: 1px solid var(--bordo); border-radius: 10px; padding: 10px 12px; font-size: 14px; margin: 10px 0; word-break: break-word; }
+  .btn-verde { background: var(--verde); border-color: var(--verde); color: #fff; }
+  .btn-rosso { background: var(--carta); border-color: var(--rosso); color: var(--rosso); }
+  .btn-giallo { background: var(--carta); border-color: var(--giallo); color: var(--giallo); }
+  .btn-grande { min-height: 64px; font-size: 19px; }
+  .btn-piccolo { min-height: 40px; font-size: 15px; padding: 8px 12px; display: inline-block; width: auto; margin-top: 6px; margin-right: 6px; }
+  .btn-link { background: none; border: none; color: var(--blu); font-size: 15px; padding: 6px 0; min-height: 0; text-align: left; font-weight: 600; width: auto; }
+  .btn .spiega { display: block; font-size: 13px; font-weight: 400; color: var(--testo2); margin-top: 2px; }
+  .btn-primario .spiega, .btn-verde .spiega { color: rgba(255,255,255,.85); }
+  .tre { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 8px; }
+  .tre .btn { margin-top: 0; }
+  @media (min-width: 420px) { .tre { grid-template-columns: 1fr 1fr 1fr; } .tre .btn { padding: 10px 6px; } }
+  .riga { display: flex; align-items: center; justify-content: space-between; padding: 10px 2px; border-top: 1px solid var(--bordo); gap: 10px; cursor: pointer; }
+  .riga:first-child { border-top: none; }
+  .riga .sx { flex: 1; min-width: 0; }
+  .riga .dx { text-align: right; white-space: nowrap; font-weight: 700; }
+  .riga .quando { font-weight: 700; }
+  .riga .cosa { color: var(--testo2); font-size: 14px; overflow: hidden; text-overflow: ellipsis; }
+  .riga.statica { cursor: default; }
+  .etichetta { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--tenue); color: var(--blu-scuro); font-weight: 700; vertical-align: middle; }
+  .etichetta.aperto { background: var(--et-aperto); color: var(--et-aperto-t); }
+  .etichetta.in_approvazione { background: var(--et-appr); color: var(--et-appr-t); }
+  .etichetta.approvato { background: var(--et-approvato); color: var(--et-approvato-t); }
+  .etichetta.pagato { background: var(--et-pagato); color: var(--et-pagato-t); }
+  .etichetta.chiuso { background: var(--et-chiuso); color: var(--et-chiuso-t); }
+  .etichetta.rosso { background: var(--et-rosso); color: var(--et-rosso-t); }
+  .avviso { background: var(--avv); border: 1px solid var(--avv-b); color: var(--avv-t); border-radius: 10px; padding: 10px 12px; margin: 8px 0; font-size: 15px; }
+  .avviso.rosso { background: var(--avv-rosso); border-color: var(--avv-rosso-b); color: var(--et-rosso-t); }
+  .avviso.verde { background: var(--avv-verde); border-color: var(--avv-verde-b); color: var(--et-aperto-t); }
+  .avviso.blu { background: var(--avv-blu); border-color: var(--avv-blu-b); color: var(--avv-blu-t); }
+  .saldo { font-size: 26px; font-weight: 800; margin: 4px 0; }
+  .saldo.pos { color: var(--verde); } .saldo.neg { color: var(--rosso); }
+  .selettore-mese { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  .selettore-mese .btn { width: 52px; min-height: 48px; margin: 0; font-size: 22px; }
+  .selettore-mese .nome { flex: 1; text-align: center; font-weight: 800; font-size: 20px; text-transform: capitalize; }
+  .totali { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; font-size: 16px; }
+  .totali .v { text-align: right; font-weight: 700; white-space: nowrap; }
+  .totali .sub { color: var(--testo2); font-size: 14px; padding-left: 12px; }
+  .stima { background: var(--stima-fondo); border: 1px dashed var(--stima-bordo); border-radius: 12px; padding: 10px 12px; margin-top: 10px; }
+  .stima .num { font-size: 24px; font-weight: 800; }
+  .stima .tag { font-size: 11px; background: #0369a1; color: #fff; padding: 2px 6px; border-radius: 4px; vertical-align: middle; margin-left: 6px; }
+  details { border-top: 1px solid var(--bordo); padding: 8px 0; }
+  details summary { cursor: pointer; font-weight: 700; font-size: 16px; padding: 6px 0; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: "›"; font-size: 22px; color: var(--grigio); transform: rotate(90deg); transition: transform .15s; }
+  details[open] summary::after { transform: rotate(-90deg); }
+  label { display: block; font-size: 14px; font-weight: 700; color: var(--testo2); margin: 12px 0 4px; }
+  input[type=text], input[type=date], input[type=time], input[type=number], input[type=email], select, textarea { width: 100%; font-size: 17px; padding: 12px; border: 1.5px solid var(--campo-bordo); border-radius: 10px; background: var(--campo); font-family: inherit; color: var(--testo); min-height: 50px; }
+  textarea { min-height: 80px; resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--blu); border-color: var(--blu); }
+  .due { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .scelta { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--bordo); font-size: 16px; }
+  .scelta:first-child { border-top: none; }
+  .scelta input { width: 22px; height: 22px; margin: 0; }
+  .nota-piccola { font-size: 13px; color: var(--testo2); margin-top: 6px; }
+  .copia { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 0; border-top: 1px solid var(--bordo); }
+  .copia .valore { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; word-break: break-all; flex: 1; }
+  .copia .btn-piccolo { margin: 0; flex-shrink: 0; }
+  .copia .et { font-size: 12px; color: var(--grigio); text-transform: uppercase; display: block; }
+  #barra { position: fixed; bottom: 0; left: 0; right: 0; background: var(--carta); border-top: 1px solid var(--bordo); display: flex; z-index: 30; padding-bottom: env(safe-area-inset-bottom, 0px); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
+  #barra .interno { max-width: 560px; margin: 0 auto; display: flex; width: 100%; }
+  #barra button { flex: 1; min-height: 60px; background: none; border: none; font-size: 13px; font-weight: 700; color: var(--grigio); cursor: pointer; font-family: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+  #barra button .icona { font-size: 22px; line-height: 1; }
+  #barra button.attiva { color: var(--blu); }
+  #barra button.nascosta { display: none; }
+  .schermo { position: fixed; inset: 0; background: var(--sfondo); z-index: 40; display: none; padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); overflow: auto; }
+  .schermo.attivo { display: block; }
+  .schermo .carta { max-width: 480px; margin: 40px auto; }
+  #modale { position: fixed; inset: 0; background: var(--velo); z-index: 50; display: none; align-items: flex-end; justify-content: center; }
+  #modale.attivo { display: flex; }
+  #modale .finestra { background: var(--carta); width: 100%; max-width: 560px; max-height: 92vh; overflow: auto; border-radius: 18px 18px 0 0; padding: 16px 16px 24px; }
+  @media (min-width: 600px) { #modale { align-items: center; } #modale .finestra { border-radius: 18px; } }
+  #modale .finestra h3 { margin: 0 0 8px; font-size: 20px; }
+  #modale .chiudi { float: right; background: none; border: none; font-size: 28px; line-height: 1; color: var(--grigio); cursor: pointer; padding: 0 4px; }
+  #toast { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%); background: #111827; color: #fff; padding: 12px 16px; border-radius: 12px; font-size: 15px; max-width: 92%; z-index: 60; display: none; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+  #toast.attivo { display: block; }
+  #toast.errore { background: var(--rosso); }
+  #toast.ok { background: var(--verde); }
+  .busta-box { overflow: hidden; border: 1px solid var(--bordo); border-radius: 10px; background: #ffffff; position: relative; }
+  .busta-frame { width: 760px; height: 820px; border: none; transform-origin: 0 0; display: block; }
+  .kv { padding: 7px 0; border-top: 1px solid var(--bordo); }
+  .kv:first-child { border-top: none; }
+  .kv .et { display: block; font-size: 12px; color: var(--grigio); text-transform: uppercase; letter-spacing: .3px; }
+  .kv .v { font-weight: 700; word-break: break-word; }
+  .anteprima-email { white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; background: var(--sfondo); border: 1px solid var(--bordo); border-radius: 10px; padding: 10px; max-height: 320px; overflow: auto; }
+  .centro { text-align: center; }
+  .spaziatore { height: 8px; }
+  .scoperta { color: var(--rosso); font-weight: 700; }
+  .caricando { text-align: center; color: var(--grigio); padding: 24px 0; }
+  .pillola { display: inline-block; background: #f3f4f6; border-radius: 8px; padding: 2px 8px; font-size: 13px; margin-right: 4px; }
+  a { color: var(--blu); }
+  table.confronto { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0; }
+  table.confronto th { text-align: left; font-size: 11px; text-transform: uppercase; color: var(--grigio); padding: 4px 4px; border-bottom: 1px solid var(--bordo); }
+  table.confronto td { padding: 5px 4px; border-bottom: 1px solid var(--bordo); font-variant-numeric: tabular-nums; }
+  table.confronto td:nth-child(n+2) { text-align: right; white-space: nowrap; }
+  table.confronto tr.rosso td { background: #fde8e8; }
+  table.confronto tr.giallo td { background: #fff6d6; }
+  table.confronto tr.verde td { background: #e6f4ea; }
+  .rosso { color: #b00020; }
+  .promemoria-oggi { border-left: 4px solid var(--giallo); }
+  .posta { border-left: 4px solid var(--blu); }
+  .posta .riga { cursor: default; }
+  .posta .oggetto { font-weight: 700; }
+  .posta .dest { font-size: 13px; color: var(--testo2); word-break: break-word; }
+  .posta .azioni { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .posta .azioni .btn { margin: 0; }
+  .posta .corpo { white-space: pre-wrap; font-size: 13px; background: var(--sfondo); border: 1px solid var(--bordo); border-radius: 8px; padding: 8px; max-height: 240px; overflow: auto; margin-top: 6px; }
+</style>
+
+</head>
+<body>
+  <div id="app">
+    <header id="testata">
+      <h1>Ore Benedetta</h1>
+      <div class="utente" id="testata-utente"></div>
+    </header>
+
+    <main id="contenuto">
+      <section id="scheda-ore" class="scheda attiva"><div class="caricando">Caricamento…</div></section>
+      <section id="scheda-spese" class="scheda"></section>
+      <section id="scheda-mese" class="scheda"></section>
+      <section id="scheda-impostazioni" class="scheda"></section>
+    </main>
+
+    <nav id="barra">
+      <div class="interno">
+        <button data-scheda="ore"><span class="icona">⏱</span>Ore</button>
+        <button data-scheda="spese"><span class="icona">💶</span>Spese</button>
+        <button data-scheda="mese"><span class="icona">📅</span>Mese</button>
+        <button data-scheda="impostazioni"><span class="icona">⚙️</span>Impostazioni</button>
+      </div>
+    </nav>
+
+    <div id="accesso" class="schermo">
+      <div class="carta">
+        <div class="titolo-grande">Chi sei?</div>
+        <p class="sotto">Scegli il tuo nome: resta salvato su questo telefono, la prossima volta basta aprire l'app.</p>
+        <div id="scelta-persona"><div class="caricando">Caricamento…</div></div>
+      </div>
+    </div>
+
+    <div id="modale"><div class="finestra" id="modale-contenuto"></div></div>
+    <div id="toast"></div>
+  </div>
+
+  <script src="config.js"></script><script>var PARAMETRI = (function () { var q = {}; location.search.replace(/[?&]([^=&]+)=([^&]*)/g, function (_, k, v) { q[decodeURIComponent(k)] = decodeURIComponent(v); }); return { k: q.k || '', vista: q.vista || '', mese: q.mese || '' }; })(); var SVILUPPO = false;</script>
+  <script>
+/* Ore Benedetta – interfaccia (vanilla JS). Parla con il server tramite api(nome, k, args). */
+(function () {
+  'use strict';
+
+  // ------------------------------------------------------------------ utilità
+  var MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+  var GIORNI = ['lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato', 'domenica'];
+  var CHIAVE_K = 'ore_benedetta_k';
+
+  function $(sel, radice) { return (radice || document).querySelector(sel); }
+  function $$(sel, radice) { return Array.prototype.slice.call((radice || document).querySelectorAll(sel)); }
+  function esc(t) { return String(t === undefined || t === null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  // Una settimana "scoperta" il cui martedì contrattuale deve ancora arrivare non è un problema: va solo segnata quando sarà passata.
+  function settimanaFutura(giorno) { return !!(stato.boot && stato.boot.oggi && giorno > stato.boot.oggi); }
+  function settimaneGiaPassate(scoperte) { return (scoperte || []).filter(function (s) { return !settimanaFutura(s.giorno); }); }
+  function dataDaIso(iso) { var p = String(iso).split('-'); return new Date(+p[0], +p[1] - 1, +(p[2] || 1), 12); }
+  function isoDaData(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function giornoSett(iso) { var g = dataDaIso(iso).getDay(); return g === 0 ? 7 : g; }
+  function fData(iso) { if (!iso) return ''; var s = String(iso).substring(0, 10); return s.substring(8, 10) + '/' + s.substring(5, 7) + '/' + s.substring(0, 4); }
+  function fDataBreve(iso) { if (!iso) return ''; var s = String(iso).substring(0, 10); return s.substring(8, 10) + '/' + s.substring(5, 7); }
+  function fDataEstesa(iso) { return GIORNI[giornoSett(iso) - 1] + ' ' + fData(iso); }
+  function fDataEstesaBreve(iso) { var g = GIORNI[giornoSett(iso) - 1]; return g.charAt(0).toUpperCase() + g.slice(1) + ' ' + fDataBreve(iso); }
+  function nomeMese(m) { return MESI[+m.substring(5, 7) - 1] + ' ' + m.substring(0, 4); }
+  function nomeMeseM(m) { var n = nomeMese(m); return n.charAt(0).toUpperCase() + n.slice(1); }
+  function aggMesi(mese, n) { var a = +mese.substring(0, 4), m = +mese.substring(5, 7) - 1 + n; a += Math.floor(m / 12); m = ((m % 12) + 12) % 12; return a + '-' + pad(m + 1); }
+  function fNum(n, d) { d = d === undefined ? 2 : d; var v = Number(n) || 0; var neg = v < 0; v = Math.abs(v); var s = v.toFixed(d); var p = s.split('.'); return (neg ? '-' : '') + p[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.') + (d ? ',' + p[1] : ''); }
+  function fEuro(n) { return fNum(n) + ' €'; }
+  function fOre(h) { var v = Math.round((Number(h) || 0) * 100) / 100; return String(v).replace('.', ',') + ' h'; }
+  function numero(t) { if (typeof t === 'number') return t; var s = String(t || '').trim().replace(/\./g, '').replace(',', '.'); if (/^-?\d+(\.\d+)?$/.test(String(t).trim())) s = String(t).trim(); var n = parseFloat(s); return isNaN(n) ? 0 : n; }
+  function oreTra(i, f) { if (!i || !f) return 0; var a = i.split(':'), b = f.split(':'); var mi = +a[0] * 60 + +a[1], mf = +b[0] * 60 + +b[1]; if (mf <= mi) mf += 1440; return Math.round((mf - mi) / 60 * 100) / 100; }
+
+  var toastTimer = null;
+  function avvisa(msg, tipo) {
+    var t = $('#toast'); t.textContent = msg; t.className = 'attivo ' + (tipo || '');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.className = ''; }, tipo === 'errore' ? 6000 : 3500);
+  }
+
+  function apriModale(titolo, html) {
+    $('#modale-contenuto').innerHTML = '<button class="chiudi" data-azione="chiudi-modale" aria-label="Chiudi">×</button><h3>' + esc(titolo) + '</h3>' + html;
+    $('#modale').classList.add('attivo');
+    document.body.style.overflow = 'hidden';
+    var primo = $('#modale-contenuto input, #modale-contenuto select, #modale-contenuto textarea');
+    if (primo && window.innerWidth > 600) try { primo.focus(); } catch (e) { }
+  }
+  function modaleWhatsApp(titolo, intro, w) {
+    if (!w) return;
+    apriModale(titolo, '<p>' + esc(intro) + ' Si apre WhatsApp con il messaggio già scritto: scegli il gruppo e invia.</p><div class="anteprima-wa">' + esc(w.testo) + '</div>' + bottoneWhatsApp(w) + '<button class="btn" data-azione="chiudi-modale">Chiudi</button>');
+  }
+  function fonteFerie(fe) {
+    return fe.fonte && fe.fonte.tipo === 'studio'
+      ? 'Lette dall\'ultima busta paga ufficiale dello Studio Pagani (' + nomeMese(fe.fonte.mese) + '), aggiornate con i ratei e le ferie dei mesi successivi.'
+      : 'Stima dell\'app: verranno allineate all\'ultima busta paga ufficiale dello Studio Pagani appena sarà caricata.';
+  }
+  function bottoneWhatsApp(w) {
+    return '<a class="btn btn-whatsapp" data-azione="whatsapp-invio" href="' + esc(w.url) + '" target="_blank" rel="noopener">Manda sul gruppo WhatsApp' + (w.gruppo ? '<span class="spiega">' + esc(w.gruppo) + '</span>' : '') + '</a>';
+  }
+  function chiudiModale() { $('#modale').classList.remove('attivo'); document.body.style.overflow = ''; }
+
+  function conferma(testo, etichettaOk, classe) {
+    return new Promise(function (ris) {
+      apriModale('Conferma', '<p>' + esc(testo).replace(/\n/g, '<br>') + '</p><button class="btn ' + (classe || 'btn-primario') + '" data-azione="conferma-si">' + esc(etichettaOk || 'Conferma') + '</button><button class="btn" data-azione="conferma-no">Annulla</button>');
+      var box = $('#modale-contenuto');
+      box.onclick = function (ev) {
+        var a = ev.target.closest('[data-azione]'); if (!a) return;
+        if (a.dataset.azione === 'conferma-si') { box.onclick = null; chiudiModale(); ris(true); }
+        if (a.dataset.azione === 'conferma-no' || a.dataset.azione === 'chiudi-modale') { box.onclick = null; chiudiModale(); ris(false); }
+      };
+    });
+  }
+
+  function chiediNota(titolo, spiegazione, obbligatoria) {
+    return new Promise(function (ris) {
+      apriModale(titolo, '<p class="sotto">' + esc(spiegazione) + '</p><label>Nota' + (obbligatoria ? ' (obbligatoria)' : '') + '</label><textarea id="nota-modale"></textarea><button class="btn btn-primario" data-azione="nota-ok">Conferma</button><button class="btn" data-azione="nota-annulla">Annulla</button>');
+      var box = $('#modale-contenuto');
+      box.onclick = function (ev) {
+        var a = ev.target.closest('[data-azione]'); if (!a) return;
+        if (a.dataset.azione === 'nota-ok') { var n = $('#nota-modale').value.trim(); if (obbligatoria && !n) { avvisa('Scrivi una nota.', 'errore'); return; } box.onclick = null; chiudiModale(); ris(n); }
+        if (a.dataset.azione === 'nota-annulla' || a.dataset.azione === 'chiudi-modale') { box.onclick = null; chiudiModale(); ris(null); }
+      };
+    });
+  }
+
+  function copia(testo) {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(testo).then(function () { avvisa('Copiato', 'ok'); }, function () { copiaFallback(testo); });
+    copiaFallback(testo);
+  }
+  function copiaFallback(testo) {
+    var ta = document.createElement('textarea'); ta.value = testo; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); avvisa('Copiato', 'ok'); } catch (e) { avvisa('Copia non riuscita: seleziona e copia a mano.', 'errore'); }
+    document.body.removeChild(ta);
+  }
+
+  function scarica(nome, contenuto, mime) {
+    var blob = new Blob([contenuto], { type: mime || 'application/octet-stream' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a'); a.href = url; a.download = nome; document.body.appendChild(a); a.click();
+    setTimeout(function () { document.body.removeChild(a); URL.revokeObjectURL(url); }, 500);
+  }
+
+  // ------------------------------------------------------------------ chiamate al server
+  var stato = { k: '', boot: null, scheda: 'ore', mese: '', dati: null, buste: null, documenti: null, impostazioni: null, caricandoMese: false };
+
+  function chiama(nome, args) {
+    if (window.ADATTATORE) return window.ADATTATORE.chiama(nome, stato.k, args || {});
+    return new Promise(function (ris, rif) {
+      if (window.API_URL) {
+        // interfaccia ospitata fuori da Google: POST "semplice" (text/plain, niente preflight) e redirect seguito
+        fetch(window.API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ nome: nome, k: stato.k, args: args || {} }), redirect: 'follow' })
+          .then(function (r) { return r.json(); }).then(ris, function (e) { rif(new Error('Server non raggiungibile: ' + e.message)); });
+      } else if (SVILUPPO) {
+        fetch('/api', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nome: nome, k: stato.k, args: args || {} }) })
+          .then(function (r) { return r.json(); }).then(ris, function (e) { rif(new Error('Server non raggiungibile: ' + e.message)); });
+      } else {
+        google.script.run.withSuccessHandler(ris).withFailureHandler(function (e) { rif(new Error(e && e.message ? e.message : String(e))); }).api(nome, stato.k, args || {});
+      }
+    });
+  }
+
+  /** Esegue una chiamata mostrando lo stato di caricamento sul pulsante; in caso di errore mostra il toast e rilancia. */
+  function esegui(bottone, nome, args) {
+    if (bottone) bottone.classList.add('caricamento');
+    return chiama(nome, args).then(function (r) {
+      if (bottone) bottone.classList.remove('caricamento');
+      if (!r || r.ok === false) { var e = new Error((r && r.errore) || 'Errore sconosciuto'); e.risposta = r; throw e; }
+      return r;
+    }, function (e) { if (bottone) bottone.classList.remove('caricamento'); throw e; });
+  }
+
+  function mostraErrore(e) { avvisa((e && e.message) || String(e), 'errore'); }
+
+  // ------------------------------------------------------------------ accesso
+  function leggiCodice() {
+    if (PARAMETRI && PARAMETRI.k) { try { localStorage.setItem(CHIAVE_K, PARAMETRI.k); } catch (e) { } return PARAMETRI.k; }
+    try { return localStorage.getItem(CHIAVE_K) || ''; } catch (e) { return ''; }
+  }
+
+  function mostraAccesso(messaggio) {
+    $('#accesso').classList.add('attivo');
+    if (messaggio) { avvisa(messaggio, 'errore'); }
+    $('#scelta-persona').innerHTML = '<div class="caricando">Caricamento…</div>';
+    chiama('persone', {}).then(function (r) {
+      if (!r || r.ok === false) { $('#scelta-persona').innerHTML = '<div class="avviso rosso">Non riesco a caricare le persone: riprova.</div>'; return; }
+      var h = (r.persone || []).map(function (p) { return '<button class="btn btn-grande" data-azione="scegli-persona" data-id="' + esc(p.id) + '">Sono ' + esc(p.nome) + '</button>'; }).join('');
+      if (!h) h = '<div class="avviso">Nessuna persona attiva: controlla la scheda Utenti del Foglio.</div>';
+      $('#scelta-persona').innerHTML = h;
+    }).catch(function (e) { $('#scelta-persona').innerHTML = '<div class="avviso rosso">' + esc(e.message) + '</div>'; });
+  }
+
+  function scegliPersona(id) {
+    stato.k = 'persona:' + id;
+    try { localStorage.setItem(CHIAVE_K, stato.k); } catch (e) { }
+    $('#accesso').classList.remove('attivo');
+    stato.boot = null; stato.impostazioni = null;
+    avvia();
+  }
+
+
+  // ------------------------------------------------------------------ avvio
+  function avvia() {
+    $('#scheda-ore').innerHTML = '<div class="caricando">Caricamento…</div>';
+    return chiama('bootstrap', {}).then(function (r) {
+      if (!r || r.ok === false) {
+        var avevaCodice = !!stato.k;
+        stato.k = ''; try { localStorage.removeItem(CHIAVE_K); } catch (e) { }
+        $('#scheda-ore').innerHTML = '';
+        mostraAccesso(avevaCodice ? ((r && r.errore) || 'Accesso non valido.') : '');
+        return;
+      }
+      stato.boot = r;
+      if (!stato.mese) stato.mese = (PARAMETRI && PARAMETRI.mese && /^\d{4}-\d{2}$/.test(PARAMETRI.mese)) ? PARAMETRI.mese : r.mese_corrente;
+      renderTestata();
+      var schedaIniziale = (PARAMETRI && PARAMETRI.vista === 'approva') ? 'mese' : stato.scheda;
+      PARAMETRI = PARAMETRI || {}; PARAMETRI.vista = ''; // solo al primo avvio
+      return caricaMese(stato.mese).then(function () { vaiA(schedaIniziale); });
+    }).catch(function (e) { mostraErrore(e); $('#scheda-ore').innerHTML = '<div class="carta"><p>Non riesco a caricare i dati.</p><button class="btn btn-primario" data-azione="ricarica">Riprova</button></div>'; });
+  }
+
+  function ricaricaTutto() {
+    return chiama('bootstrap', {}).then(function (r) { if (r && r.ok) { stato.boot = r; renderTestata(); } return caricaMese(stato.mese); });
+  }
+
+  function caricaMese(mese) {
+    stato.mese = mese; stato.caricandoMese = true;
+    return chiama('mese', { mese: mese }).then(function (r) {
+      stato.caricandoMese = false;
+      if (!r || r.ok === false) { mostraErrore(new Error((r && r.errore) || 'Errore')); return; }
+      stato.dati = r; stato.buste = null;
+      renderTutto();
+    }, function (e) { stato.caricandoMese = false; mostraErrore(e); });
+  }
+
+  function vaiA(scheda) {
+    stato.scheda = scheda;
+    $$('.scheda').forEach(function (s) { s.classList.toggle('attiva', s.id === 'scheda-' + scheda); });
+    $$('#barra button').forEach(function (b) { b.classList.toggle('attiva', b.dataset.scheda === scheda); });
+    window.scrollTo(0, 0);
+    if (scheda === 'impostazioni' && !stato.impostazioni) caricaImpostazioni();
+  }
+
+  $$('#barra button').forEach(function (b) { b.addEventListener('click', function () { vaiA(b.dataset.scheda); }); });
+
+  function renderTutto() { renderOre(); renderSpese(); renderMese(); if (stato.impostazioni) renderImpostazioni(); renderPosta(); }
+
+  /** Sulla pagina claude.ai le email non partono da sole: i genitori le mandano dalla propria posta con testo e allegati pronti. */
+  function renderPosta() {
+    var box = $('#posta-uscita'); if (!box || !window.ADATTATORE || !stato.boot) return;
+    var h = [];
+    var prom = window.ADATTATORE.promemoriaOggi(stato.boot.utente.ruolo);
+    prom.forEach(function (p) { h.push('<div class="carta promemoria-oggi"><div class="quando">' + esc(p.oggetto) + '</div><div class="sotto">' + esc(p.testo).replace(/\n/g, '<br>') + '</div></div>'); });
+    if (eGenitore()) {
+      var lista = window.ADATTATORE.emailDaInviare();
+      if (lista.length) {
+        h.push('<div class="carta posta"><h2>Email da mandare (' + lista.length + ')</h2><p class="sotto">La pagina non può spedire da sola: apri la tua posta con «Scrivi email», copia il testo se serve, aggiungi gli allegati scaricati, poi segna come inviata.</p>');
+        lista.forEach(function (e) {
+          var mailto = 'mailto:' + encodeURIComponent(e.a) + '?' + (e.cc && e.cc.length ? 'cc=' + encodeURIComponent(e.cc.join(',')) + '&' : '') + 'subject=' + encodeURIComponent(e.oggetto) + '&body=' + encodeURIComponent(e.testo);
+          h.push('<div class="riga statica"><div class="sx"><div class="oggetto">' + esc(e.oggetto) + '</div><div class="dest">A: ' + (e.a ? esc(e.a) : '<span class="rosso">(indirizzo di ' + esc(nomeLav()) + ' non impostato: aggiungilo nelle Impostazioni o scrivilo tu)</span>') + (e.cc && e.cc.length ? ' · Cc: ' + esc(e.cc.join(', ')) : '') + '</div><details><summary>Testo</summary><div class="corpo">' + esc(e.testo) + '</div></details><div class="azioni"><a class="btn btn-piccolo btn-primario" href="' + esc(mailto) + '">Scrivi email</a><button class="btn btn-piccolo" data-azione="copia" data-testo="' + esc(e.testo) + '">Copia testo</button>' +
+            (e.allegati || []).map(function (al) { return '<button class="btn btn-piccolo" data-azione="posta-allegato" data-id="' + esc(al.file_id) + '" data-nome="' + esc(al.nome) + '">Scarica ' + esc(al.nome) + '</button>'; }).join('') +
+            '<button class="btn btn-piccolo btn-verde" data-azione="posta-inviata" data-id="' + esc(e.id) + '">Segna come inviata</button></div></div></div>');
+        });
+        h.push('</div>');
+      }
+    }
+    box.innerHTML = h.join('');
+  }
+
+  function renderTestata() {
+    var u = stato.boot.utente;
+    $('#testata-utente').innerHTML = '<b>' + esc(u.nome) + '</b>' + (stato.boot.config_pubblica.modalita_test ? ' <span class="etichetta rosso">TEST</span>' : '') +
+      '<br><a href="#" data-azione="accesso-genitore" style="color:#fff;font-size:12px;text-decoration:underline">Non sei ' + esc(u.nome) + '? Cambia</a>';
+  }
+
+  function eGenitore() { return stato.boot && stato.boot.utente.ruolo === 'genitore'; }
+  function nomeLav() { return stato.boot.config_pubblica.lavoratrice.nome; }
+  function cp() { return stato.boot.config_pubblica; }
+
+  function selettoreMese(prefisso) {
+    var m = stato.mese; var info = (stato.boot.mesi || []).filter(function (x) { return x.mese === m; })[0];
+    var st = stato.dati && stato.dati.mese === m ? stato.dati.stato : (info ? info.stato : 'aperto');
+    var et = stato.dati && stato.dati.mese === m ? stato.dati.etichetta_stato : (info ? info.etichetta : 'Aperto');
+    return '<div class="selettore-mese"><button class="btn" data-azione="mese-prec" aria-label="Mese precedente">‹</button><div class="nome">' + esc(nomeMese(m)) + '<br><span class="etichetta ' + esc(st) + '">' + esc(et) + '</span></div><button class="btn" data-azione="mese-succ" aria-label="Mese successivo">›</button></div>';
+  }
+
+  // ------------------------------------------------------------------ scheda ORE
+  function renderOre() {
+    if (!$('#posta-uscita')) { var pu = document.createElement('div'); pu.id = 'posta-uscita'; $('#contenuto').insertBefore(pu, $('#scheda-ore')); }
+    var b = stato.boot, d = stato.dati, c = cp();
+    var h = [];
+    var pg = b.prossimo_giorno;
+    var oggi = b.oggi;
+    h.push('<div class="carta">');
+    h.push('<h2>Questa settimana</h2>');
+    h.push('<div class="titolo-grande">' + esc(fDataEstesaBreve(pg.data)) + ', ' + esc(pg.ora_inizio) + '–' + esc(pg.ora_fine) + '</div>');
+    if (pg.festivo) {
+      h.push('<div class="avviso blu">Questo giorno è una festività: è retribuita (0,5 h) anche senza lavorare. Non serve registrare nulla.</div>');
+    } else if (pg.registrato) {
+      h.push('<div class="avviso verde">✓ Settimana già registrata' + (pg.come === 'assenza' ? ' come ore non lavorate' : '') + '. Per aggiungere altre ore usa «Aggiungi ore extra».</div>');
+    } else if (pg.data > oggi) {
+      h.push('<div class="sotto">Il turno è nei prossimi giorni: registralo quando è fatto (o segna subito se non si farà).</div>');
+    } else {
+      h.push('<div class="sotto">Segna com\'è andata: basta un tocco.</div>');
+    }
+    if (pg.precedente && pg.precedente.registrato) h.push('<div class="mut">La settimana scorsa (' + esc(fDataBreve(pg.precedente.data)) + ') è registrata.</div>');
+    h.push('<div class="tre">');
+    h.push('<button class="btn btn-verde btn-grande" data-azione="fatto"' + (pg.registrato || pg.festivo ? ' disabled' : '') + '>Fatto<span class="spiega">turno ordinario ' + esc(pg.ora_inizio) + '–' + esc(pg.ora_fine) + '</span></button>');
+    h.push('<button class="btn btn-grande" data-azione="orario-diverso">Orario diverso<span class="spiega">spostato, extra o recupero</span></button>');
+    h.push('<button class="btn btn-grande" data-azione="non-fatto"' + (pg.festivo ? ' disabled' : '') + '>Non fatto<span class="spiega">annullato, ferie, malattia…</span></button>');
+    h.push('</div></div>');
+
+    // Ferie residue sempre in vista (richiesta di Manuele, 22/10/2026), con la fonte
+    if (b.ferie) h.push('<div class="carta ferie-riga"><div class="kv"><span class="et">Ferie residue</span><span class="v">' + esc(fOre(b.ferie.residue)) + ' · permessi ' + esc(fOre(b.ferie.permessi.residui)) + '</span></div><div class="nota-piccola">' + esc(fonteFerie(b.ferie)) + '</div></div>');
+
+    if (!d) { h.push('<div class="caricando">Caricamento del mese…</div>'); $('#scheda-ore').innerHTML = h.join(''); return; }
+
+    // Settimane scoperte
+    var scopertePassate = settimaneGiaPassate(d.totali.settimane_scoperte);
+    if (scopertePassate.length && d.stato === 'aperto') {
+      h.push('<div class="avviso rosso"><b>Settimane scoperte in ' + esc(nomeMese(d.mese)) + ':</b><br>' + scopertePassate.map(function (s) { return '• ' + esc(fDataEstesa(s.giorno)) + ' – mancano ' + esc(fOre(s.ore_mancanti)); }).join('<br>') + '<br><span class="nota-piccola">Segna le ore lavorate o non lavorate di queste settimane prima di inviare il mese.</span></div>');
+    }
+
+    // Ore da recuperare
+    var sr = b.saldo_recuperi;
+    if (sr && sr.totale) {
+      h.push('<div class="carta"><h2>Ore da recuperare</h2><div class="saldo">' + esc(fOre(sr.totale)) + '</div><div class="sotto">chieste dalla famiglia: <b>' + esc(fOre(sr.famiglia)) + '</b> · chieste da ' + esc(nomeLav()) + ': <b>' + esc(fOre(sr.lavoratrice)) + '</b></div>');
+      h.push('<details><summary>Giornate da recuperare</summary>' + sr.dettaglio.filter(function (x) { return x.residue > 0; }).map(function (x) { return '<div class="riga statica"><div class="sx"><div class="quando">' + esc(fDataEstesa(x.data)) + '</div><div class="cosa">' + (x.richiesto_da === 'lavoratrice' ? 'chiesto da ' + esc(nomeLav()) : 'chiesto dalla famiglia') + (x.accordo_il ? ' · accordo del ' + esc(fData(x.accordo_il)) + (x.accordo_via ? ' via ' + esc(x.accordo_via) : '') : '') + '</div></div><div class="dx">' + esc(fOre(x.residue)) + '<br><span class="mut">di ' + esc(fOre(x.ore)) + '</span></div></div>'; }).join('') + '</details>');
+      h.push('<button class="btn" data-azione="nuovo-recupero">Registra un recupero</button></div>');
+    }
+
+    // Registrazioni del mese
+    h.push('<div class="carta">');
+    h.push(selettoreMese('ore'));
+    h.push('<h2>Registrazioni di ' + esc(nomeMese(d.mese)) + '</h2>');
+    var righe = [];
+    d.turni.forEach(function (t) { righe.push({ data: t.data, ordine: t.ora_inizio, tipo: 'turno', r: t }); });
+    d.assenze.forEach(function (a) { righe.push({ data: a.data, ordine: '00:00', tipo: 'assenza', r: a }); });
+    righe.sort(function (a, b) { return (b.data + b.ordine).localeCompare(a.data + a.ordine); });
+    if (!righe.length) h.push('<p class="mut">Nessuna registrazione in questo mese.</p>');
+    righe.forEach(function (x) {
+      if (x.tipo === 'turno') {
+        var t = x.r;
+        h.push('<div class="riga" data-azione="modifica-turno" data-id="' + esc(t.id) + '"><div class="sx"><div class="quando">' + esc(fDataEstesa(t.data)) + ' <span class="mut">' + esc(t.ora_inizio) + '–' + esc(t.ora_fine) + '</span></div><div class="cosa">' + esc(t.etichetta || t.tipo) + (t.attivita ? ' · ' + esc(t.attivita) : '') + (t.nota ? ' · ' + esc(t.nota) : '') + '</div></div><div class="dx">' + esc(fOre(t.ore)) + '</div></div>');
+      } else {
+        var a = x.r;
+        h.push('<div class="riga" data-azione="modifica-assenza" data-id="' + esc(a.id) + '"><div class="sx"><div class="quando">' + esc(fDataEstesa(a.data)) + '</div><div class="cosa">' + esc(a.etichetta) + (a.causa === 'da_recuperare' ? ' · recuperate ' + esc(fOre(a.ore_recuperate)) + ', restano ' + esc(fOre(a.ore_residue)) : '') + (a.protocollo ? ' · prot. ' + esc(a.protocollo) : '') + (a.note ? ' · ' + esc(a.note) : '') + '</div></div><div class="dx"><span style="color:var(--grigio)">' + esc(fOre(a.ore)) + '</span></div></div>');
+      }
+    });
+    if (d.totali.festivita.length) d.totali.festivita.forEach(function (f) { h.push('<div class="riga statica"><div class="sx"><div class="quando">' + esc(fDataEstesa(f.data)) + '</div><div class="cosa">Festività: ' + esc(f.nome) + ' (retribuita)</div></div><div class="dx"><span style="color:var(--grigio)">' + esc(fOre(c.festivita_ore)) + '</span></div></div>'); });
+    if (d.puo_modificare) h.push('<button class="btn" data-azione="ore-extra">+ Aggiungi ore extra</button>');
+    else h.push('<p class="nota-piccola">Il mese è «' + esc(d.etichetta_stato) + '»: non si può più modificare.</p>');
+    h.push('</div>');
+
+    // Invio
+    h.push('<div class="carta centro">');
+    h.push('<div class="sotto">Stato di ' + esc(nomeMese(d.mese)) + ': <span class="etichetta ' + esc(d.stato) + '">' + esc(d.etichetta_stato) + '</span></div>');
+    if (d.stato === 'aperto') {
+      if (d.puo_inviare) h.push('<button class="btn btn-primario btn-grande" data-azione="invia-mese">Invia ' + esc(nomeMese(d.mese)) + ' per approvazione</button>');
+      else h.push('<p class="nota-piccola">Il pulsante «Invia per approvazione» compare dall\'ultimo giorno del mese.</p>');
+    } else if (d.stato === 'in_approvazione') {
+      h.push('<p class="sotto">Inviato il ' + esc(fData(d.record.inviato_il)) + ': in attesa dell\'approvazione dei genitori.</p>');
+      if (eGenitore()) h.push('<button class="btn btn-primario" data-azione="vai-mese">Vai all\'approvazione</button>');
+      else if (d.whatsapp) h.push(bottoneWhatsApp(d.whatsapp));
+    } else {
+      h.push('<p class="sotto">Approvato da ' + esc(d.record.approvato_da) + ' il ' + esc(fData(d.record.approvato_il)) + '.</p><button class="btn" data-azione="vai-mese">Vedi riepilogo e busta paga</button>');
+    }
+    h.push('</div>');
+    $('#scheda-ore').innerHTML = h.join('');
+  }
+
+  // ------------------------------------------------------------------ moduli turni / assenze
+  function opzioni(lista, valore) { return lista.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (o[0] === valore ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join(''); }
+
+  function campoNotaGenitore(valore) {
+    if (!eGenitore()) return '<label>Nota (facoltativa)</label><input type="text" name="nota" value="' + esc(valore || '') + '">';
+    return '<label>Nota (obbligatoria per le correzioni dei genitori)</label><input type="text" name="nota" value="' + esc(valore || '') + '" placeholder="es. corretto l\'orario come concordato">';
+  }
+
+  function modaleTurno(t, titolo) {
+    var c = cp(); t = t || {};
+    var tipo = t.tipo || 'spostato';
+    var tipi = [['ordinario', 'Ordinario (orario abituale)'], ['spostato', 'Orario spostato (di comune accordo)'], ['aggiuntivo', 'Ore aggiuntive (oltre le ' + c.ore_settimanali + ' h, chieste da un genitore)'], ['recupero', 'Recupero di ore saltate']];
+    var daRec = (stato.dati && stato.dati.assenze_da_recuperare) || [];
+    var h = '<form id="form-turno">' +
+      (t.id ? '<input type="hidden" name="id" value="' + esc(t.id) + '">' : '') +
+      '<label>Giorno</label><input type="date" name="data" value="' + esc(t.data || stato.boot.prossimo_giorno.data) + '" required>' +
+      '<div class="due"><div><label>Dalle</label><input type="time" name="ora_inizio" step="900" value="' + esc(t.ora_inizio || c.ora_inizio_ordinaria) + '" required></div><div><label>Alle</label><input type="time" name="ora_fine" step="900" value="' + esc(t.ora_fine || c.ora_fine_ordinaria) + '" required></div></div>' +
+      '<div class="nota-piccola" id="ore-calcolate"></div>' +
+      '<label>Tipo</label><select name="tipo">' + opzioni(tipi, tipo) + '</select>' +
+      '<div id="campi-spostato"><label>Al posto del ' + esc(GIORNI[(c.giorno_ordinario || 2) - 1]) + '</label><input type="date" name="data_riferimento" value="' + esc(t.data_riferimento || '') + '"><div class="nota-piccola">Il giorno abituale che questo turno sostituisce (così la settimana risulta coperta).</div></div>' +
+      '<div id="campi-recupero"><label>Giornata che stai recuperando</label>' + (daRec.length ? '<select name="assenza_id">' + opzioni(daRec.map(function (a) { return [a.id, fDataEstesa(a.data) + ' – restano ' + fOre(a.ore_residue)]; }), t.assenza_id) + '</select>' : '<div class="avviso">Non ci sono ore da recuperare.</div>') + '<div class="nota-piccola">Le ore di recupero sono pagate nel mese in cui vengono fatte, senza maggiorazioni.</div></div>' +
+      '<label>Attività (facoltativa)</label><input type="text" name="attivita" value="' + esc(t.attivita || '') + '" placeholder="es. compiti Enrico, parco">' +
+      campoNotaGenitore(t.nota) +
+      '<button class="btn btn-primario" data-azione="salva-turno">Salva</button>' +
+      (t.id ? '<button class="btn btn-rosso" data-azione="elimina-turno" data-id="' + esc(t.id) + '">Elimina</button>' : '') +
+      '</form>';
+    apriModale(titolo || (t.id ? 'Modifica turno' : 'Orario diverso'), h);
+    if (t.data_riferimento) $('#form-turno [name=data_riferimento]').dataset.manuale = '1';
+    aggiornaCampiTurno();
+    var f = $('#form-turno');
+    f.addEventListener('change', aggiornaCampiTurno);
+    f.addEventListener('input', aggiornaCampiTurno);
+    f.addEventListener('submit', function (ev) { ev.preventDefault(); });
+  }
+
+  function aggiornaCampiTurno(ev) {
+    var f = $('#form-turno'); if (!f) return;
+    var tipo = f.tipo.value;
+    $('#campi-spostato').style.display = tipo === 'spostato' ? '' : 'none';
+    $('#campi-recupero').style.display = tipo === 'recupero' ? '' : 'none';
+    var ore = oreTra(f.ora_inizio.value, f.ora_fine.value);
+    $('#ore-calcolate').textContent = ore ? 'Durata: ' + fOre(ore) + (ore > 12 ? ' (attraversa la mezzanotte?)' : '') : '';
+    if (ev && ev.target === f.data_riferimento) f.data_riferimento.dataset.manuale = '1';
+    // proposta: il giorno contrattuale della stessa settimana, finché l'utente non lo cambia a mano
+    if (tipo === 'spostato' && f.data.value && !f.data_riferimento.dataset.manuale) {
+      var g = giornoSett(f.data.value), d = dataDaIso(f.data.value); d.setDate(d.getDate() + ((cp().giorno_ordinario || 2) - g));
+      f.data_riferimento.value = isoDaData(d);
+    }
+  }
+
+  function salvaTurnoDaForm(bottone) {
+    var f = $('#form-turno');
+    var args = { id: f.id ? f.id.value : '', data: f.data.value, ora_inizio: f.ora_inizio.value, ora_fine: f.ora_fine.value, tipo: f.tipo.value, attivita: f.attivita.value, nota: f.nota.value };
+    if (args.tipo === 'spostato') args.data_riferimento = f.data_riferimento.value;
+    if (args.tipo === 'recupero') { if (!f.assenza_id) { avvisa('Non ci sono ore da recuperare.', 'errore'); return; } args.assenza_id = f.assenza_id.value; }
+    if (!args.data || !args.ora_inizio || !args.ora_fine) { avvisa('Compila giorno e orari.', 'errore'); return; }
+    var m = [args.ora_inizio, args.ora_fine].some(function (o) { return (+o.split(':')[1]) % 15 !== 0; });
+    if (m) { avvisa('Gli orari vanno a passi di 15 minuti (es. 16:30, 16:45).', 'errore'); return; }
+    esegui(bottone, 'salvaTurno', args).then(function () { chiudiModale(); avvisa('Turno salvato', 'ok'); return ricaricaTutto(); }).catch(function (e) {
+      if (/Esiste già un turno/.test(e.message)) {
+        conferma(e.message + '\nVuoi salvarlo lo stesso?', 'Salva comunque').then(function (si) { if (si) { args.conferma_doppio = true; esegui(null, 'salvaTurno', args).then(function () { avvisa('Turno salvato', 'ok'); return ricaricaTutto(); }).catch(mostraErrore); } });
+      } else mostraErrore(e);
+    });
+  }
+
+  function registraFatto(bottone) {
+    var pg = stato.boot.prossimo_giorno;
+    var vai = function () {
+      esegui(bottone, 'salvaTurno', { data: pg.data, ora_inizio: pg.ora_inizio, ora_fine: pg.ora_fine, tipo: 'ordinario' })
+        .then(function () { avvisa('Registrato: ' + fDataEstesaBreve(pg.data) + ' ' + pg.ora_inizio + '–' + pg.ora_fine, 'ok'); return ricaricaTutto(); }).catch(mostraErrore);
+    };
+    if (pg.data > stato.boot.oggi) conferma('Il turno di ' + fDataEstesaBreve(pg.data) + ' non è ancora passato. Registrarlo lo stesso?', 'Registra').then(function (si) { if (si) vai(); });
+    else vai();
+  }
+
+  function modaleNonFatto() {
+    var c = cp(), pg = stato.boot.prossimo_giorno;
+    var h = '<p class="sotto">' + esc(fDataEstesaBreve(pg.data)) + ' – scegli cosa è successo:</p>' +
+      '<button class="btn" data-azione="scelta-assenza" data-causa="annullata_famiglia">Annullato dalla famiglia<span class="spiega">retribuito normalmente, senza recupero</span></button>' +
+      '<button class="btn" data-azione="scelta-assenza" data-causa="da_recuperare">Da recuperare<span class="spiega">concordato per iscritto; non retribuito ora, retribuito quando viene recuperato</span></button>' +
+      '<button class="btn" data-azione="scelta-assenza" data-causa="ferie">Ferie<span class="spiega">retribuite: 3 h per ogni settimana di ferie</span></button>' +
+      '<button class="btn" data-azione="scelta-assenza" data-causa="malattia">Malattia<span class="spiega">secondo CCNL, la calcola lo studio (serve il certificato)</span></button>' +
+      '<button class="btn" data-azione="scelta-assenza" data-causa="altro">Altro…<span class="spiega">permesso, assenza non retribuita</span></button>';
+    apriModale('Non fatto', h);
+  }
+
+  function modaleAssenza(a, causaIniziale) {
+    var c = cp(); a = a || {};
+    var causa = a.causa || causaIniziale || 'annullata_famiglia';
+    var cause = [['annullata_famiglia', 'Annullato dalla famiglia (retribuito)'], ['da_recuperare', 'Da recuperare (accordo scritto)'], ['ferie', 'Ferie'], ['malattia', 'Malattia'], ['permesso_retribuito', 'Permesso retribuito'], ['permesso_non_retribuito', 'Permesso non retribuito'], ['assenza_lavoratrice', 'Assenza non retribuita']];
+    var data = a.data || stato.boot.prossimo_giorno.data;
+    var h = '<form id="form-assenza">' +
+      (a.id ? '<input type="hidden" name="id" value="' + esc(a.id) + '">' : '') +
+      '<label>Giorno</label><input type="date" name="data" value="' + esc(data) + '" required>' +
+      '<label>Motivo</label><select name="causa">' + opzioni(cause, causa) + '</select>' +
+      '<div id="spiega-causa" class="nota-piccola"></div>' +
+      '<div id="campi-ferie"><div class="scelta"><input type="radio" name="ferie_modo" id="ferie-settimana" value="settimana"' + (a.id ? '' : ' checked') + '><label for="ferie-settimana" style="margin:0">Settimana intera (lun–sab, ' + esc(fOre(c.ore_settimanali)) + ' dal saldo ferie)</label></div><div class="scelta"><input type="radio" name="ferie_modo" id="ferie-giorno" value="giorno"' + (a.id ? ' checked' : '') + '><label for="ferie-giorno" style="margin:0">Solo questo giorno (' + esc(fOre(c.festivita_ore)) + ')</label></div></div>' +
+      '<div id="campi-ore"><label>Ore non lavorate</label><input type="text" inputmode="decimal" name="ore" value="' + esc(a.ore !== undefined ? String(a.ore).replace('.', ',') : String(c.ore_settimanali).replace('.', ',')) + '"></div>' +
+      '<div id="campi-recupero-acc"><label>Chi ha chiesto di spostare le ore?</label><select name="richiesto_da">' + opzioni([['famiglia', 'La famiglia'], ['lavoratrice', esc(nomeLav())]], a.richiesto_da || 'famiglia') + '</select>' +
+      '<div class="due"><div><label>Data dell\'accordo</label><input type="date" name="accordo_il" value="' + esc(a.accordo_il || stato.boot.oggi) + '"></div><div><label>Canale</label><select name="accordo_via">' + opzioni([['whatsapp', 'WhatsApp'], ['email', 'E-mail']], a.accordo_via || 'whatsapp') + '</select></div></div>' +
+      '<div class="avviso">Promemoria: serve l\'accordo scritto su WhatsApp o e-mail. Alla cessazione, le ore non recuperate si pagano solo se chieste dalla famiglia.</div></div>' +
+      '<div id="campi-malattia"><label>Numero di protocollo del certificato</label><input type="text" name="protocollo" value="' + esc(a.protocollo || '') + '" placeholder="es. 123456789"><div class="nota-piccola">La quota a carico del datore la calcola lo studio; qui vengono elencati i giorni.</div></div>' +
+      '<label>Note' + (eGenitore() && a.id ? ' (obbligatorie per le correzioni dei genitori)' : ' (facoltative)') + '</label><input type="text" name="note" value="' + esc(a.note || '') + '">' +
+      '<button class="btn btn-primario" data-azione="salva-assenza">Salva</button>' +
+      (a.id ? '<button class="btn btn-rosso" data-azione="elimina-assenza" data-id="' + esc(a.id) + '">Elimina</button>' : '') +
+      '</form>';
+    apriModale(a.id ? 'Modifica ore non lavorate' : 'Non fatto', h);
+    aggiornaCampiAssenza();
+    var f = $('#form-assenza');
+    f.addEventListener('change', aggiornaCampiAssenza);
+    f.addEventListener('submit', function (ev) { ev.preventDefault(); });
+  }
+
+  var SPIEGA_CAUSA = {
+    annullata_famiglia: 'Ore annullate dalla famiglia senza accordo di recupero: sono retribuite nel mese (art. 18 CCNL).',
+    da_recuperare: 'Ore spostate di comune accordo (per iscritto): non retribuite ora, retribuite nel mese in cui vengono recuperate. Nessuna scadenza.',
+    ferie: 'Ferie retribuite: 26 giorni l\'anno = 13 h (0,5 h al giorno). Meglio a settimane intere.',
+    malattia: 'Malattia: secondo CCNL, la quota a carico del datore la calcola lo studio.',
+    permesso_retribuito: 'Permessi retribuiti art. 19 CCNL: 1,2 h all\'anno.',
+    permesso_non_retribuito: 'Permesso concordato, non retribuito.',
+    assenza_lavoratrice: 'Assenza non concordata e non coperta da altre causali: non retribuita.'
+  };
+
+  function aggiornaCampiAssenza() {
+    var f = $('#form-assenza'); if (!f) return;
+    var causa = f.causa.value;
+    $('#spiega-causa').textContent = SPIEGA_CAUSA[causa] || '';
+    var modifica = !!(f.id && f.id.value);
+    $('#campi-ferie').style.display = (causa === 'ferie' && !modifica) ? '' : 'none';
+    var settimana = causa === 'ferie' && !modifica && f.ferie_modo.value === 'settimana';
+    $('#campi-ore').style.display = settimana ? 'none' : '';
+    $('#campi-recupero-acc').style.display = causa === 'da_recuperare' ? '' : 'none';
+    $('#campi-malattia').style.display = causa === 'malattia' ? '' : 'none';
+    if (causa === 'ferie' && !modifica && !settimana && numero(f.ore.value) === cp().ore_settimanali) f.ore.value = String(cp().festivita_ore).replace('.', ',');
+    if (causa !== 'ferie' && !modifica && numero(f.ore.value) === cp().festivita_ore) f.ore.value = String(cp().ore_settimanali).replace('.', ',');
+  }
+
+  function salvaAssenzaDaForm(bottone) {
+    var f = $('#form-assenza');
+    var causa = f.causa.value;
+    if (!f.data.value) { avvisa('Indica il giorno.', 'errore'); return; }
+    if (causa === 'ferie' && !(f.id && f.id.value) && f.ferie_modo.value === 'settimana') {
+      esegui(bottone, 'salvaFerieSettimana', { data: f.data.value, note: f.note.value }).then(function (r) { chiudiModale(); avvisa('Ferie registrate: ' + fOre(r.ore), 'ok'); return ricaricaTutto(); }).catch(mostraErrore);
+      return;
+    }
+    var args = { id: f.id ? f.id.value : '', data: f.data.value, ore: numero(f.ore.value), causa: causa, note: f.note.value };
+    if (causa === 'da_recuperare') { args.richiesto_da = f.richiesto_da.value; args.accordo_il = f.accordo_il.value; args.accordo_via = f.accordo_via.value; }
+    if (causa === 'malattia') { args.protocollo = f.protocollo.value; args.certificato_malattia = !!f.protocollo.value; }
+    esegui(bottone, 'salvaAssenza', args).then(function () { chiudiModale(); avvisa('Salvato', 'ok'); return ricaricaTutto(); }).catch(mostraErrore);
+  }
+
+  function eliminaRecord(bottone, nome, id, cosa) {
+    var procedi = function (nota) {
+      esegui(bottone, nome, { id: id, nota: nota || '' }).then(function () { chiudiModale(); avvisa(cosa + ' eliminato', 'ok'); return ricaricaTutto(); }).catch(mostraErrore);
+    };
+    if (eGenitore()) chiediNota('Elimina ' + cosa.toLowerCase(), 'I genitori devono indicare il motivo della cancellazione.', true).then(function (n) { if (n !== null) procedi(n); });
+    else conferma('Eliminare questo ' + cosa.toLowerCase() + '?', 'Elimina', 'btn-rosso').then(function (si) { if (si) procedi(''); });
+  }
+
+  // ------------------------------------------------------------------ scheda SPESE
+  function renderSpese() {
+    var d = stato.dati; if (!d) return;
+    var h = [], s = d.saldo_spese_totale, nome = nomeLav();
+    h.push('<div class="carta centro"><h2>Saldo spese</h2>');
+    if (s > 0) h.push('<div class="saldo pos">' + esc(nome) + ' deve ricevere ' + esc(fEuro(s)) + '</div>');
+    else if (s < 0) h.push('<div class="saldo neg">' + esc(nome) + ' deve restituire ' + esc(fEuro(-s)) + '</div>');
+    else h.push('<div class="saldo">Conti in pari</div>');
+    // Scelta di Manuele (21/10/2026): niente anticipi in contanti né resti; solo spese di Benedetta e rimborsi dei genitori.
+    // Le voci vecchie di quei tipi restano leggibili e contano ancora nel saldo.
+    h.push('<div class="sotto">spese sostenute da ' + esc(nome) + ' − rimborsi già pagati a parte</div></div>');
+    h.push('<div class="carta"><h2>Registra</h2>');
+    if (eGenitore()) {
+      h.push('<button class="btn btn-primario" data-azione="nuova-spesa" data-tipo="spesa_sostenuta">' + esc(nome) + ' ha speso<span class="spiega">spesa pagata di tasca sua</span></button>');
+      h.push('<button class="btn" data-azione="nuova-spesa" data-tipo="rimborso_pagato">Abbiamo rimborsato<span class="spiega">rimborso pagato a parte (non con lo stipendio)</span></button>');
+    } else {
+      h.push('<button class="btn btn-primario" data-azione="nuova-spesa" data-tipo="spesa_sostenuta">Ho speso<span class="spiega">museo, merenda, biglietti… (non servono scontrini)</span></button>');
+    }
+    h.push('</div>');
+    h.push('<div class="carta">' + selettoreMese('spese') + '<h2>Spese di ' + esc(nomeMese(d.mese)) + '</h2>');
+    var voci = d.spese.voci.slice().sort(function (a, b) { return b.data.localeCompare(a.data); });
+    if (!voci.length) h.push('<p class="mut">Nessuna spesa registrata in questo mese.</p>');
+    var ET = { anticipo_contanti: 'Contanti anticipati', spesa_sostenuta: 'Spesa sostenuta', rimborso_pagato: 'Rimborso pagato', resto_restituito: 'Resto restituito' };
+    voci.forEach(function (v) {
+      var segno = (v.tipo === 'spesa_sostenuta' || v.tipo === 'resto_restituito') ? '+' : '−';
+      h.push('<div class="riga" data-azione="modifica-spesa" data-id="' + esc(v.id) + '"><div class="sx"><div class="quando">' + esc(fDataEstesa(v.data)) + '</div><div class="cosa">' + esc(ET[v.tipo] || v.tipo) + (v.causale ? ' · ' + esc(v.causale) : '') + (v.nota ? ' · ' + esc(v.nota) : '') + '</div></div><div class="dx">' + segno + ' ' + esc(fEuro(v.importo)) + '</div></div>');
+    });
+    h.push('<div class="nota-piccola">Saldo del mese: ' + esc(fEuro(d.spese.saldo)) + ' (+ = da ricevere, − = da restituire). I rimborsi del mese vengono aggiunti alla busta paga provvisoria.</div></div>');
+    $('#scheda-spese').innerHTML = h.join('');
+  }
+
+  function modaleSpesa(v, tipoIniziale) {
+    v = v || {};
+    var tipi = eGenitore() ? [['spesa_sostenuta', nomeLav() + ' ha speso'], ['rimborso_pagato', 'Abbiamo rimborsato']] : [['spesa_sostenuta', 'Ho speso']];
+    if (v.tipo && !tipi.some(function (t) { return t[0] === v.tipo; })) tipi.push([v.tipo, v.tipo]);
+    var h = '<form id="form-spesa">' + (v.id ? '<input type="hidden" name="id" value="' + esc(v.id) + '">' : '') +
+      '<label>Tipo</label><select name="tipo">' + opzioni(tipi, v.tipo || tipoIniziale) + '</select>' +
+      '<label>Giorno</label><input type="date" name="data" value="' + esc(v.data || stato.boot.oggi) + '" required>' +
+      '<label>Importo (€)</label><input type="text" inputmode="decimal" name="importo" value="' + esc(v.importo !== undefined ? fNum(v.importo) : '') + '" placeholder="es. 12,50" required>' +
+      '<label>Causale</label><input type="text" name="causale" value="' + esc(v.causale || '') + '" placeholder="museo, cibo, trasporti…">' +
+      campoNotaGenitore(v.nota) +
+      '<button class="btn btn-primario" data-azione="salva-spesa">Salva</button>' + (v.id ? '<button class="btn btn-rosso" data-azione="elimina-spesa" data-id="' + esc(v.id) + '">Elimina</button>' : '') + '</form>';
+    apriModale(v.id ? 'Modifica spesa' : 'Spesa', h);
+    $('#form-spesa').addEventListener('submit', function (ev) { ev.preventDefault(); });
+  }
+
+  function salvaSpesaDaForm(bottone) {
+    var f = $('#form-spesa');
+    var args = { id: f.id ? f.id.value : '', data: f.data.value, importo: numero(f.importo.value), tipo: f.tipo.value, causale: f.causale.value, nota: f.nota.value };
+    if (!(args.importo > 0)) { avvisa('Inserisci un importo valido (es. 12,50).', 'errore'); return; }
+    esegui(bottone, 'salvaSpesa', args).then(function () { chiudiModale(); avvisa('Spesa salvata', 'ok'); return ricaricaTutto(); }).catch(mostraErrore);
+  }
+
+  // ------------------------------------------------------------------ scheda MESE
+  function renderMese() {
+    var d = stato.dati, b = stato.boot, c = cp(); if (!d) return;
+    var t = d.totali, h = [];
+    h.push('<div class="carta">' + selettoreMese('mese'));
+    h.push('<h2>Totali di ' + esc(nomeMese(d.mese)) + '</h2><div class="totali">');
+    function r(et, v, sub) { h.push('<div class="' + (sub ? 'sub' : '') + '">' + et + '</div><div class="v">' + esc(v) + '</div>'); }
+    r('Ore ordinarie lavorate', fOre(t.ore_ordinarie_totali));
+    if (t.ore_spostate) r('di cui con orario spostato', fOre(t.ore_spostate), true);
+    if (t.ore_recupero) r('Ore di recupero (retribuite)', fOre(t.ore_recupero));
+    if (t.ore_aggiuntive) { r('Ore aggiuntive', fOre(t.ore_aggiuntive)); t.fasce_aggiuntive.forEach(function (f) { r(esc(f.etichetta) + (f.maggiorazione ? ' (+' + Math.round(f.maggiorazione * 100) + '%)' : ''), fOre(f.ore), true); }); }
+    if (t.ore_annullate_famiglia) r('Annullate dalla famiglia (retribuite)', fOre(t.ore_annullate_famiglia));
+    if (t.ore_da_recuperare_saltate) r('Da recuperare, saltate (non retribuite ora)', fOre(t.ore_da_recuperare_saltate));
+    if (t.ore_ferie) r('Ferie', fOre(t.ore_ferie));
+    if (t.ore_permessi_retribuiti) r('Permessi retribuiti', fOre(t.ore_permessi_retribuiti));
+    if (t.ore_permessi_non_retribuiti) r('Permessi non retribuiti', fOre(t.ore_permessi_non_retribuiti));
+    if (t.ore_assenza_lavoratrice) r('Assenze non retribuite', fOre(t.ore_assenza_lavoratrice));
+    if (t.giorni_malattia) r('Malattia (giorni)', String(t.giorni_malattia));
+    r('Festività (' + t.numero_festivita + ' × ' + fOre(c.festivita_ore) + ')', fOre(t.ore_festivita));
+    r('<b>Totale ore retribuite</b>', fOre(t.ore_retribuite));
+    h.push('</div>');
+    h.push('<div class="stima"><div class="sotto">Stima del netto <span class="tag">STIMA</span></div><div class="num">' + esc(fEuro(t.stima_netto.netto)) + '</div><div class="nota-piccola">' + (t.stima_netto.tredicesima ? 'Include la tredicesima comunicata dallo studio (' + esc(fEuro(t.stima_netto.tredicesima)) + '). ' : '') + (t.stima_netto.tredicesima_mancante ? '<span class="rosso"><b>Tredicesima:</b> la calcola e la comunica lo Studio Pagani; non è inclusa nella busta provvisoria. </span>' : '') + 'L\'importo da pagare è quello della busta paga provvisoria; quella ufficiale è dello studio.</div></div>');
+    if (t.avvisi.length) t.avvisi.forEach(function (a) {
+      if (a.tipo === 'settimana_scoperta' && settimanaFutura(a.giorno)) { // il martedì deve ancora arrivare: niente allarme
+        var sc = t.settimane_scoperte.filter(function (s) { return s.giorno === a.giorno; })[0];
+        h.push('<div class="avviso"><b>Settimana di ' + esc(fDataEstesa(a.giorno)) + '</b>: ancora da fare' + (sc ? ' (' + esc(fOre(sc.ore_mancanti)) + ' previste)' : '') + '. Si segna dopo.</div>');
+      } else h.push('<div class="avviso' + (a.tipo === 'settimana_scoperta' ? ' rosso' : '') + '">' + esc(a.testo) + '</div>');
+    });
+    if (t.festivita.length) h.push('<div class="nota-piccola">Festività: ' + t.festivita.map(function (f) { return esc(fData(f.data)) + ' ' + esc(f.nome); }).join(', ') + '</div>');
+    h.push('</div>');
+
+    // Stato e azioni
+    var rec = d.record;
+    h.push('<div class="carta"><h2>Stato: <span class="etichetta ' + esc(d.stato) + '">' + esc(d.etichetta_stato) + '</span></h2>');
+    if (d.stato === 'aperto') {
+      if (d.note_correzione && d.note_correzione.length) { var ult = d.note_correzione[d.note_correzione.length - 1]; h.push('<div class="avviso">Ultima nota di ' + esc(ult.chi) + ' (' + esc(fData(ult.quando)) + '): «' + esc(ult.nota) + '»</div>'); }
+      if (d.puo_inviare) h.push('<button class="btn btn-primario btn-grande" data-azione="invia-mese">Invia ' + esc(nomeMese(d.mese)) + ' per approvazione</button>');
+      else h.push('<p class="sotto">Il mese è aperto: ' + esc(nomeLav()) + ' lo invierà per approvazione dall\'ultimo giorno del mese.</p>');
+      if (eGenitore()) h.push('<button class="btn btn-link" data-azione="conguaglio-manuale">Imposta un conguaglio manuale su questo mese…</button>');
+    }
+    if (d.stato === 'in_approvazione') {
+      h.push('<p class="sotto">Inviato da ' + esc(rec.inviato_da) + ' il ' + esc(fData(rec.inviato_il)) + '.</p>');
+      if (eGenitore()) {
+        h.push('<h3>Busta paga provvisoria</h3><div class="totali"><div>Netto provvisorio</div><div class="v">' + esc(fEuro(d.busta.netto_provvisorio)) + '</div><div>Rimborsi spese</div><div class="v">' + esc(fEuro(d.busta.rimborsi_spese)) + '</div>' + (d.busta.conguaglio ? '<div>Conguaglio ' + esc(nomeMese(d.busta.conguaglio.mese)) + '</div><div class="v">' + esc(fEuro(d.busta.conguaglio.importo)) + '</div>' : '') + '<div><b>Totale da pagare</b></div><div class="v">' + esc(fEuro(d.busta.totale_da_pagare)) + '</div></div>');
+        h.push('<details open><summary>Busta paga provvisoria (anteprima)</summary><div class="busta-box" id="busta-box"><iframe class="busta-frame" id="busta-frame" title="Busta paga provvisoria"></iframe></div><button class="btn btn-piccolo" data-azione="apri-busta">' + (window.ADATTATORE ? 'Scarica PDF' : 'Apri a schermo intero') + '</button></details>');
+        if (d.anteprima_email_studio) h.push('<details><summary>Anteprima email allo studio</summary><div class="nota-piccola"><b>A:</b> ' + esc(d.anteprima_email_studio.a) + '<br><b>Cc:</b> ' + esc((d.anteprima_email_studio.cc || []).join(', ')) + '<br><b>Oggetto:</b> ' + esc(d.anteprima_email_studio.oggetto) + (d.anteprima_email_studio.modalita_test ? '<br><span class="etichetta rosso">MODALITÀ TEST: l\'email andrà solo ai genitori</span>' : '') + '</div><div class="anteprima-email">' + esc(d.anteprima_email_studio.testo) + '</div></details>');
+        h.push('<button class="btn btn-verde btn-grande" data-azione="approva-mese">Approva e invia allo studio</button>');
+        h.push('<button class="btn btn-giallo btn-grande" data-azione="chiedi-correzione">Chiedi una correzione</button>');
+      } else h.push('<p class="sotto">In attesa dell\'approvazione di Manuele o Sara.</p>');
+    }
+    if (d.stato === 'approvato' || d.stato === 'pagato' || d.stato === 'chiuso') {
+      h.push('<p class="sotto">Approvato da ' + esc(rec.approvato_da) + ' il ' + esc(fData(rec.approvato_il)) + (rec.rettifiche > 0 ? ' (rettifica n. ' + esc(rec.rettifiche) + ')' : '') + '.</p>');
+      h.push('<div class="totali"><div>Netto provvisorio</div><div class="v">' + esc(fEuro(rec.netto_provvisorio)) + '</div><div>Rimborsi spese</div><div class="v">' + esc(fEuro(rec.rimborsi_spese)) + '</div>' + (Number(rec.conguaglio_applicato) ? '<div>Conguaglio ' + esc(rec.conguaglio_mese ? nomeMese(rec.conguaglio_mese) : '') + '</div><div class="v">' + esc(fEuro(rec.conguaglio_applicato)) + '</div>' : '') + '</div>');
+      h.push('<div class="saldo centro">' + (d.stato === 'approvato' ? 'Da pagare: ' : 'Pagato: ') + esc(fEuro(d.stato === 'approvato' ? rec.totale_da_pagare : rec.importo_pagato)) + '</div>');
+      if (d.stato === 'approvato') h.push('<div class="sotto centro">entro il ' + esc(c.giorno_pagamento) + ' ' + esc(nomeMese(aggMesi(d.mese, 1)).split(' ')[0]) + '</div>');
+      if (d.stato !== 'approvato') h.push('<div class="sotto centro">il ' + esc(fData(rec.pagato_il)) + ' · ' + esc(rec.modalita_pagamento) + '</div>');
+      if (d.busta_html) h.push('<details><summary>Busta paga provvisoria</summary><div class="busta-box" id="busta-box"><iframe class="busta-frame" id="busta-frame" title="Busta paga provvisoria"></iframe></div><button class="btn btn-piccolo" data-azione="apri-busta">' + (window.ADATTATORE ? 'Scarica PDF' : 'Apri a schermo intero') + '</button></details>');
+      if (eGenitore() && d.stato === 'approvato') {
+        if (c.bonifico_attivo) h.push('<button class="btn btn-primario" data-azione="prepara-bonifico">Prepara bonifico</button>');
+        h.push('<button class="btn btn-verde btn-grande" data-azione="conferma-pagamento">Conferma pagamento</button>');
+        h.push('<button class="btn btn-giallo" data-azione="riapri-mese">Riapri il mese (con nota)</button>');
+      }
+      if (eGenitore() && d.stato === 'pagato') h.push('<button class="btn btn-primario btn-grande" data-azione="carica-definitiva">Carica busta paga definitiva</button>');
+      if (d.stato === 'chiuso') h.push('<div class="avviso verde">Busta paga definitiva caricata il ' + esc(fData(rec.definitiva_caricata_il)) + ': netto definitivo ' + esc(fEuro(rec.netto_definitivo)) + (Number(rec.differenza) ? ', differenza ' + esc(fEuro(rec.differenza)) + ' in conguaglio' + (rec.conguaglio_usato_nel_mese ? ' (applicato in ' + esc(nomeMese(rec.conguaglio_usato_nel_mese)) + ')' : ' nel prossimo mese') : ', nessuna differenza') + '.</div>');
+    }
+    if (d.whatsapp) h.push('<div class="sotto" style="margin-top:12px">Messaggio per il gruppo WhatsApp (' + esc(d.whatsapp.gruppo || 'famiglia') + '):</div><div class="anteprima-wa">' + esc(d.whatsapp.testo) + '</div>' + bottoneWhatsApp(d.whatsapp));
+    h.push('</div>');
+
+    // Buste paga
+    h.push('<div class="carta"><h2>' + (eGenitore() ? 'Buste paga' : 'Le mie buste paga') + '</h2><div id="lista-buste">' + (stato.buste ? htmlBuste(stato.buste) : '<button class="btn" data-azione="carica-buste">Mostra le buste paga</button>') + '</div></div>');
+
+    // Documenti (ricevute INPS, CU, altro)
+    h.push('<div class="carta"><h2>Documenti</h2><p class="sotto">Ricevute dei versamenti INPS, Certificazione Unica e altri documenti per ' + esc(nomeLav()) + '.</p><div id="lista-documenti">' + (stato.documenti ? htmlDocumenti(stato.documenti) : '<button class="btn" data-azione="carica-documenti">Mostra i documenti</button>') + '</div>' + (eGenitore() ? '<button class="btn btn-primario" data-azione="nuovo-documento">Carica un documento</button>' : '') + '</div>');
+
+    // Ferie e permessi
+    var fe = b.ferie;
+    h.push('<div class="carta"><details><summary>Ferie e permessi</summary><div class="totali"><div>Ferie maturate</div><div class="v">' + esc(fOre(fe.maturate)) + '</div><div>Ferie godute</div><div class="v">' + esc(fOre(fe.godute)) + '</div><div><b>Ferie residue</b> (su ' + esc(fOre(fe.ore_anno)) + ' all\'anno)</div><div class="v">' + esc(fOre(fe.residue)) + '</div><div>Permessi residui (su ' + esc(fOre(fe.permessi.ore_anno)) + ' all\'anno)</div><div class="v">' + esc(fOre(fe.permessi.residui)) + '</div></div><div class="nota-piccola">' + esc(fonteFerie(fe)) + ' Una settimana di ferie = 6 giorni × 0,5 h = 3 h. Maturano ' + esc(fOre(fe.ratei_mese)) + ' al mese.</div></details>');
+    if (d.storico && d.storico.length) h.push('<details><summary>Storico del mese</summary>' + d.storico.map(function (s) { return '<div class="riga statica"><div class="sx"><div class="quando">' + esc(s.chi) + ' · ' + esc(etAzione(s.azione)) + '</div><div class="cosa">' + esc(s.quando) + (s.nota ? ' · «' + esc(s.nota) + '»' : '') + '</div></div></div>'; }).join('') + '</details>');
+    h.push('</div>');
+    $('#scheda-mese').innerHTML = h.join('');
+    var fr = $('#busta-frame'); if (fr && d.busta_html) { fr.srcdoc = d.busta_html; adattaBusta(); }
+  }
+
+  /** Adatta la busta (pagina A4 da 760 px) alla larghezza dello schermo, scalandola. */
+  function adattaBusta() {
+    var box = $('#busta-box'), fr = $('#busta-frame'); if (!box || !fr) return;
+    var larghezza = box.clientWidth || (window.innerWidth - 56);
+    var s = Math.min(1, larghezza / 760);
+    fr.style.transform = 'scale(' + s + ')';
+    box.style.height = Math.round(820 * s) + 'px';
+  }
+  window.addEventListener('resize', adattaBusta);
+
+  function apriBustaIntera() {
+    var d = stato.dati; if (!d || !d.busta_html) return;
+    if (window.ADATTATORE) { window.ADATTATORE.scaricaBustaPdf(d.busta_html, 'busta-provvisoria-' + d.mese + '.pdf').then(function () { avvisa('PDF pronto', 'ok'); }).catch(mostraErrore); return; }
+    var w = window.open('', '_blank');
+    if (w) { w.document.open(); w.document.write(d.busta_html); w.document.close(); }
+    else scarica('busta-provvisoria-' + d.mese + '.html', d.busta_html, 'text/html');
+  }
+
+  function htmlDocumenti(lista) {
+    if (!lista.length) return '<p class="mut">Nessun documento ancora caricato.</p>';
+    return lista.map(function (d) {
+      var apri = window.ADATTATORE ? '<button class="btn btn-piccolo" data-azione="scarica-file" data-id="' + esc(d.file_id) + '" data-nome="' + esc(d.nome_file) + '">Apri</button>' : (d.url ? '<a href="' + esc(d.url) + '" target="_blank" rel="noopener">Apri</a>' : '');
+      return '<div class="riga statica"><div class="sx"><div class="quando">' + esc(d.etichetta_tipo) + (d.periodo ? ' ' + esc(d.periodo) : '') + (d.importo ? ' · ' + esc(fEuro(d.importo)) : '') + '</div><div class="cosa">' + esc(d.descrizione || '') + (d.descrizione ? ' · ' : '') + 'caricato da ' + esc(d.caricato_da) + ' il ' + esc(fData(d.caricato_il)) + '</div></div><div class="dx">' + apri + (d.whatsapp ? '<a class="btn btn-piccolo btn-whatsapp" href="' + esc(d.whatsapp.url) + '" target="_blank" rel="noopener">WhatsApp</a>' : '') + (eGenitore() ? '<button class="btn btn-piccolo btn-rosso" data-azione="elimina-documento" data-id="' + esc(d.id) + '">Elimina</button>' : '') + '</div></div>';
+    }).join('');
+  }
+
+  function modaleDocumento() {
+    var anno = (stato.boot.oggi || '').substring(0, 4);
+    var tri = Math.ceil(parseInt((stato.boot.oggi || '').substring(5, 7), 10) / 3) || 1;
+    var precedente = tri === 1 ? (anno - 1) + '-T4' : anno + '-T' + (tri - 1);
+    apriModale('Carica un documento', '<form id="form-documento"><label>Tipo</label><select name="tipo"><option value="inps_trimestre">Ricevuta del versamento INPS (trimestre)</option><option value="contratto">Contratto di assunzione (firmato)</option><option value="cu">Certificazione Unica</option><option value="altro">Altro documento</option></select>' +
+      '<label>Trimestre o periodo</label><input type="text" name="periodo" value="' + esc(precedente) + '" placeholder="es. 2026-T4 oppure 2026"><div class="nota-piccola">Per l\'INPS usa il formato anno-trimestre: 2026-T4 = ottobre–dicembre 2026 (versamento entro il 10 gennaio).</div>' +
+      '<label>Importo versato (€, facoltativo)</label><input type="text" inputmode="decimal" name="importo" placeholder="es. 48,30">' +
+      '<label>Descrizione (facoltativa)</label><input type="text" name="descrizione" placeholder="es. MAV pagato il 9/1">' +
+      '<label>File (PDF o foto)</label><input type="file" name="file" accept="application/pdf,image/*">' +
+      '<button class="btn btn-primario" data-azione="salva-documento">Carica e avvisa ' + esc(nomeLav()) + '</button></form>');
+    // il trimestre precompilato ha senso solo per la ricevuta INPS
+    $('#form-documento select[name=tipo]').addEventListener('change', function () { var f = $('#form-documento'); f.periodo.value = this.value === 'inps_trimestre' ? precedente : ''; f.periodo.placeholder = this.value === 'inps_trimestre' ? 'es. 2026-T4' : 'es. 2026 (facoltativo)'; });
+  }
+
+  function salvaDocumento(bottone) {
+    var f = $('#form-documento');
+    var file = f.file.files[0];
+    if (!file) { avvisa('Seleziona il file.', 'errore'); return; }
+    if (file.size > 8 * 1024 * 1024) { avvisa('File troppo grande (massimo 8 MB).', 'errore'); return; }
+    leggiBase64(file).then(function (b64) {
+      return esegui(bottone, 'caricaDocumento', { tipo: f.tipo.value, periodo: f.periodo.value.trim(), importo: f.importo.value.trim(), descrizione: f.descrizione.value.trim(), nome_file: file.name, mime: file.type || '', base64: b64 });
+    }).then(function (r) { chiudiModale(); avvisa('Documento caricato.', 'ok'); modaleWhatsApp('Documento caricato', 'Ora avvisa ' + nomeLav() + ' sul gruppo WhatsApp.', r.whatsapp); stato.documenti = null; return ricaricaTutto(); }).catch(mostraErrore);
+  }
+
+  function etAzione(a) { return { invia: 'invio per approvazione', chiedi_correzione: 'richiesta di correzione', approva: 'approvazione', riapri: 'riapertura', conferma_pagamento: 'pagamento confermato', carica_definitiva: 'busta definitiva caricata' }[a] || a; }
+
+  function htmlBuste(lista) {
+    if (!lista.length) return '<p class="mut">Nessuna busta paga ancora disponibile.</p>';
+    return lista.map(function (b) {
+      var linkProvv = !b.provvisoria ? 'Provvisoria: –' : (window.ADATTATORE ? '<button class="btn btn-piccolo" data-azione="scarica-file" data-id="' + esc(b.provvisoria.file_id) + '" data-nome="busta-provvisoria-' + esc(b.mese) + '.pdf">Provvisoria (PDF)</button>' : '<a href="' + esc(b.provvisoria.url) + '" target="_blank" rel="noopener">Provvisoria (PDF)</a>');
+      var linkDef = !b.definitiva ? 'Definitiva: non ancora caricata' : (window.ADATTATORE ? '<button class="btn btn-piccolo" data-azione="scarica-file" data-id="' + esc(b.definitiva.file_id) + '" data-nome="busta-definitiva-' + esc(b.mese) + '.pdf">Definitiva (PDF)</button>' : '<a href="' + esc(b.definitiva.url) + '" target="_blank" rel="noopener">Definitiva (PDF)</a>');
+      return '<div class="riga statica"><div class="sx"><div class="quando">' + esc(nomeMeseM(b.mese)) + ' <span class="etichetta ' + esc(b.stato) + '">' + esc(cp().etichette_stato[b.stato] || b.stato) + '</span></div><div class="cosa">' +
+        linkProvv + ' · ' + linkDef +
+        '<br>Netto provvisorio ' + esc(fEuro(b.netto_provvisorio)) + (b.importo_pagato !== '' && b.importo_pagato !== undefined ? ' · pagato ' + esc(fEuro(b.importo_pagato)) + ' il ' + esc(fData(b.pagato_il)) : '') + (b.netto_definitivo !== '' && b.netto_definitivo !== undefined ? ' · definitivo ' + esc(fEuro(b.netto_definitivo)) + ' · conguaglio ' + esc(fEuro(b.differenza)) : '') + '</div></div></div>';
+    }).join('');
+  }
+
+  // ------------------------------------------------------------------ azioni del flusso
+  function inviaMese(bottone, forza) {
+    var d = stato.dati;
+    var avvisoFine = d.mese_finito ? '' : '\nIl mese non è ancora finito: se mancano giornate future, segnale prima.';
+    var pre = forza ? Promise.resolve(true) : conferma('Inviare le ore di ' + nomeMese(d.mese) + ' per approvazione?' + avvisoFine + '\nDopo l\'invio il mese non si potrà più modificare (finché un genitore non chiede una correzione).', 'Invia');
+    pre.then(function (si) {
+      if (!si) return;
+      if (forza) chiudiModale();
+      esegui(bottone, 'inviaMese', { mese: d.mese, forza_scoperte: !!forza }).then(function (r) {
+        avvisa('Mese inviato.', 'ok');
+        if (r && r.whatsapp) modaleWhatsApp('Mese inviato', 'Ora avvisa i genitori sul gruppo WhatsApp.', r.whatsapp);
+        return ricaricaTutto();
+      }).catch(function (e) {
+        if (e.risposta && e.risposta.settimane_scoperte) {
+          apriModale('Settimane scoperte', '<p>' + esc(e.message) + '</p>' + e.risposta.settimane_scoperte.map(function (s) { return settimanaFutura(s.giorno) ? '<div class="avviso">' + esc(fDataEstesa(s.giorno)) + ': settimana non ancora passata (' + esc(fOre(s.ore_mancanti)) + ' previste)</div>' : '<div class="avviso rosso">' + esc(fDataEstesa(s.giorno)) + ': mancano ' + esc(fOre(s.ore_mancanti)) + '</div>'; }).join('') +
+            '<button class="btn btn-primario" data-azione="chiudi-modale">Ok, le completo</button>' + (eGenitore() ? '<button class="btn" data-azione="invia-mese-forzato">Invia comunque (solo genitori)</button>' : ''));
+        } else mostraErrore(e);
+      });
+    });
+  }
+
+  function approvaMese(bottone) {
+    var d = stato.dati;
+    conferma('Approvare ' + nomeMese(d.mese) + ' e mandare il riepilogo allo studio?\nTotale da pagare: ' + fEuro(d.busta.totale_da_pagare) + '.\nPoi manderai la busta provvisoria a ' + nomeLav() + ' sul gruppo WhatsApp.', 'Approva e invia', 'btn-verde').then(function (si) {
+      if (!si) return;
+      esegui(bottone, 'approvaMese', { mese: d.mese }).then(function (r) {
+        avvisa('Mese approvato: email allo studio inviata' + (r.rettifica ? ' (RETTIFICA)' : '') + '.', 'ok');
+        modaleWhatsApp('Mese approvato', 'Ora manda a ' + nomeLav() + ' la busta provvisoria sul gruppo WhatsApp.', r.whatsapp);
+        return ricaricaTutto();
+      }).catch(mostraErrore);
+    });
+  }
+
+  function chiediCorrezione(bottone) {
+    var d = stato.dati;
+    chiediNota('Chiedi una correzione', 'Scrivi a ' + nomeLav() + ' cosa va corretto: il mese torna aperto e poi le mandi la nota sul gruppo WhatsApp.', true).then(function (nota) {
+      if (nota === null) return;
+      esegui(bottone, 'chiediCorrezione', { mese: d.mese, nota: nota }).then(function (r) {
+        avvisa('Richiesta registrata: il mese è di nuovo aperto.', 'ok');
+        modaleWhatsApp('Correzione richiesta', 'Ora manda la nota a ' + nomeLav() + ' sul gruppo WhatsApp.', r.whatsapp);
+        return ricaricaTutto();
+      }).catch(mostraErrore);
+    });
+  }
+
+  function riapriMese(bottone) {
+    var d = stato.dati;
+    chiediNota('Riapri il mese', 'Il mese torna aperto per le correzioni; alla nuova approvazione lo studio riceverà una RETTIFICA.', true).then(function (nota) {
+      if (nota === null) return;
+      esegui(bottone, 'riapriMese', { mese: d.mese, nota: nota }).then(function () { avvisa('Mese riaperto.', 'ok'); return ricaricaTutto(); }).catch(mostraErrore);
+    });
+  }
+
+  function modaleConguaglioManuale() {
+    var d = stato.dati;
+    apriModale('Conguaglio manuale', '<p class="sotto">Importo (positivo o negativo) da aggiungere alla busta provvisoria di ' + esc(nomeMese(d.mese)) + ', ad esempio per correggere un mese già pagato.</p><form id="form-conguaglio"><label>Importo (€)</label><input type="text" inputmode="decimal" name="importo" value="' + esc(d.record.conguaglio_manuale ? fNum(d.record.conguaglio_manuale) : '') + '" placeholder="es. -12,00"><label>Nota (obbligatoria)</label><input type="text" name="nota" value="' + esc(d.record.conguaglio_manuale_nota || '') + '"><button class="btn btn-primario" data-azione="salva-conguaglio">Salva</button></form>');
+    $('#form-conguaglio').addEventListener('submit', function (ev) { ev.preventDefault(); });
+  }
+
+  function modalePagamento() {
+    var d = stato.dati, rec = d.record;
+    apriModale('Conferma pagamento', '<form id="form-pagamento"><label>Data del pagamento</label><input type="date" name="data" value="' + esc(stato.boot.oggi) + '"><label>Importo pagato (€)</label><input type="text" inputmode="decimal" name="importo" value="' + esc(fNum(rec.totale_da_pagare)) + '"><label>Modalità</label><select name="modalita"><option value="bonifico">Bonifico</option><option value="altro">Altra modalità concordata</option></select><div id="campo-modalita-dettaglio" style="display:none"><label>Quale?</label><input type="text" name="modalita_dettaglio" placeholder="es. contanti"></div><button class="btn btn-verde" data-azione="salva-pagamento">Conferma pagamento</button></form><p class="nota-piccola">Poi mandi a ' + esc(nomeLav()) + ' la conferma sul gruppo WhatsApp.</p>');
+    var f = $('#form-pagamento');
+    f.addEventListener('change', function () { $('#campo-modalita-dettaglio').style.display = f.modalita.value === 'altro' ? '' : 'none'; });
+    f.addEventListener('submit', function (ev) { ev.preventDefault(); });
+  }
+
+  function salvaPagamento(bottone) {
+    var f = $('#form-pagamento');
+    esegui(bottone, 'confermaPagamento', { mese: stato.dati.mese, data: f.data.value, importo: numero(f.importo.value), modalita: f.modalita.value, modalita_dettaglio: f.modalita_dettaglio.value })
+      .then(function (r) { chiudiModale(); avvisa('Pagamento confermato.', 'ok'); modaleWhatsApp('Pagamento confermato', 'Ora avvisa ' + nomeLav() + ' sul gruppo WhatsApp.', r.whatsapp); return ricaricaTutto(); }).catch(mostraErrore);
+  }
+
+  function preparaBonifico(bottone) {
+    esegui(bottone, 'preparaBonifico', { mese: stato.dati.mese }).then(function (r) {
+      var d = r.dati;
+      var h = '<p class="sotto">Copia i dati nell\'internet banking, oppure scarica il file XML da caricare in banca. L\'app non esegue pagamenti.</p>';
+      function c(et, v) { return '<div class="copia"><div><span class="et">' + esc(et) + '</span><span class="valore">' + esc(v || '—') + '</span></div>' + (v ? '<button class="btn btn-piccolo" data-azione="copia" data-testo="' + esc(v) + '">Copia</button>' : '') + '</div>'; }
+      h += c('Beneficiario', d.beneficiario) + c('IBAN', d.iban) + c('Importo', d.importo_testo) + c('Causale', d.causale) + c('Data esecuzione proposta', fData(d.data_esecuzione));
+      if (!d.iban_valido) h += '<div class="avviso rosso">Manca (o non è valido) l\'IBAN di ' + esc(nomeLav()) + ': inseriscilo nelle Impostazioni.</div>';
+      if (r.xml) { stato.xmlBonifico = { nome: r.nome_file, xml: r.xml }; h += '<button class="btn btn-primario" data-azione="scarica-xml">Scarica file XML (SEPA pain.001)</button><div class="nota-piccola">Formato da verificare con Banca Sella: se non è accettato, usa i dati qui sopra.</div>'; }
+      else if (r.errore_xml) h += '<div class="avviso">File XML non generato: ' + esc(r.errore_xml) + '</div>';
+      h += '<button class="btn" data-azione="chiudi-modale">Chiudi</button>';
+      apriModale('Dati per il bonifico', h);
+    }).catch(mostraErrore);
+  }
+
+  function modaleDefinitiva() {
+    var d = stato.dati;
+    apriModale('Carica busta paga definitiva', '<p class="sotto">Seleziona il PDF della busta di ' + esc(nomeMese(d.mese)) + ' preparata dallo studio. Claude la legge, la confronta con la provvisoria e segnala i problemi; poi confermi il netto.</p><form id="form-definitiva"><label>PDF della busta paga</label><input type="file" name="file" accept="application/pdf,.pdf"><div id="esito-lettura" class="nota-piccola"></div><div id="analisi-definitiva"></div><label>Netto definitivo (€)</label><input type="text" inputmode="decimal" name="netto" placeholder="es. 187,00"><div class="nota-piccola">Netto provvisorio pagato: ' + esc(fEuro(d.record.netto_provvisorio)) + '. Le differenze da arrotondamento (sotto 1 €) non vengono conguagliate; quelle maggiori vanno in conguaglio nella prossima busta provvisoria.</div><div class="due"><div><label>Ferie residue sulla busta (h)</label><input type="text" inputmode="decimal" name="ferie_residue" placeholder="es. 1,08"></div><div><label>Permessi residui (h)</label><input type="text" inputmode="decimal" name="permessi_residui" placeholder="es. 0,20"></div></div><div class="nota-piccola">Facoltativi: se li inserisci, l\'app li usa come riferimento per le ferie residue mostrate a ' + esc(nomeLav()) + '.</div><button class="btn btn-primario" data-azione="salva-definitiva">Carica e chiudi il mese</button></form>');
+    var f = $('#form-definitiva');
+    f.addEventListener('submit', function (ev) { ev.preventDefault(); });
+    f.file.addEventListener('change', function () {
+      var file = f.file.files[0]; if (!file) return;
+      $('#esito-lettura').textContent = cp().ia_attiva ? 'Lettura del PDF con Claude in corso (qualche secondo)…' : 'Lettura del PDF in corso…';
+      $('#analisi-definitiva').innerHTML = '';
+      stato.analisiDefinitiva = null;
+      leggiBase64(file).then(function (b64) {
+        stato.pdfDefinitiva = { nome: file.name, base64: b64 };
+        if (window.ADATTATORE) return window.ADATTATORE.analizzaDefinitiva(d.mese, file, d.busta);
+        if (!cp().ia_attiva) return null; // lettura automatica spenta: le definitive le controlla Claude in chat
+        return chiama('analizzaDefinitiva', { mese: d.mese, base64: b64 });
+      }).then(function (r) {
+        if (r && r.ok && r.analisi) { mostraAnalisiDefinitiva(r.analisi, f); return; }
+        if (r && r.chiave_mancante) $('#esito-lettura').textContent = 'Lettura con Claude non configurata: provo la lettura semplice…';
+        else if (r) $('#esito-lettura').textContent = ((r && r.errore) || 'Analisi non riuscita') + ' – provo la lettura semplice…';
+        return chiama('estraiNetto', { base64: stato.pdfDefinitiva.base64 }).then(function (r2) {
+          if (r2 && r2.ok && r2.dati && r2.dati.trovato) { f.netto.value = fNum(r2.dati.netto); $('#esito-lettura').textContent = 'Netto letto dal PDF: ' + fEuro(r2.dati.netto) + (r2.dati.ore_inps !== undefined ? ' · ore INPS ' + fNum(r2.dati.ore_inps) : '') + '. Controlla e conferma.'; }
+          else $('#esito-lettura').textContent = 'Non sono riuscito a leggere il netto dal PDF: inseriscilo a mano.';
+        });
+      }).catch(function () { $('#esito-lettura').textContent = 'Lettura automatica non disponibile: inserisci il netto a mano.'; });
+    });
+  }
+
+  /** Mostra il confronto provvisoria/definitiva prodotto da Claude e propone il netto. */
+  function mostraAnalisiDefinitiva(an, f) {
+    stato.analisiDefinitiva = an;
+    if (an.netto_proposto !== null && an.netto_proposto !== undefined) f.netto.value = fNum(an.netto_proposto);
+    $('#esito-lettura').textContent = an.riassunto || '';
+    var h = [];
+    var alti = an.problemi.filter(function (p) { return p.gravita === 'alta'; });
+    if (alti.length) h.push('<div class="avviso rosso"><b>Problemi da controllare prima di caricare:</b><br>' + alti.map(function (p) { return '• ' + esc(p.testo); }).join('<br>') + '</div>');
+    var altri = an.problemi.filter(function (p) { return p.gravita !== 'alta'; });
+    if (altri.length) h.push('<div class="avviso">' + altri.map(function (p) { return '• ' + esc(p.testo) + ' <span class="etichetta">' + esc(p.gravita) + '</span>'; }).join('<br>') + '</div>');
+    if (!an.problemi.length) h.push('<div class="avviso verde">Nessun problema segnalato da Claude.</div>');
+    h.push('<table class="confronto"><thead><tr><th>Voce</th><th>Provvisoria</th><th>Definitiva</th><th>Diff.</th></tr></thead><tbody>');
+    an.confronto.forEach(function (c) {
+      var fmt = c.ore ? fOre : fEuro;
+      var classe = c.stato === 'diverso' ? 'rosso' : (c.stato === 'arrotondamento' ? 'giallo' : (c.stato === 'uguale' ? 'verde' : ''));
+      h.push('<tr class="' + classe + '"><td>' + esc(c.campo) + '</td><td>' + esc(fmt(c.provvisoria)) + '</td><td>' + (c.definitiva === null ? '–' : esc(fmt(c.definitiva))) + '</td><td>' + (c.differenza === null ? '–' : esc((c.differenza > 0 ? '+' : '') + fmt(c.differenza))) + '</td></tr>');
+    });
+    h.push('</tbody></table>');
+    if (an.osservazioni) h.push('<p class="nota-piccola">' + esc(an.osservazioni) + '</p>');
+    if (an.dati && an.dati.voci && an.dati.voci.length) h.push('<details><summary>Voci lette dalla definitiva</summary>' + an.dati.voci.map(function (v) { return '<div class="riga statica"><div class="sx">' + esc(v.descrizione || '') + (v.quantita ? ' · ' + esc(fNum(v.quantita)) + ' h' : '') + '</div><div class="dx">' + (v.importo !== null && v.importo !== undefined ? esc(fEuro(v.importo)) : '') + '</div></div>'; }).join('') + '</details>');
+    $('#analisi-definitiva').innerHTML = h.join('');
+  }
+
+  function leggiBase64(file) {
+    return new Promise(function (ris, rif) {
+      var fr = new FileReader();
+      fr.onload = function () { ris(String(fr.result).split(',')[1] || ''); };
+      fr.onerror = function () { rif(new Error('Lettura del file non riuscita')); };
+      fr.readAsDataURL(file);
+    });
+  }
+
+  function salvaDefinitiva(bottone) {
+    var f = $('#form-definitiva');
+    if (!stato.pdfDefinitiva) { avvisa('Seleziona il PDF.', 'errore'); return; }
+    var netto = numero(f.netto.value);
+    if (!(netto > 0)) { avvisa('Inserisci il netto definitivo.', 'errore'); return; }
+    var an = stato.analisiDefinitiva;
+    var sintesi = an ? { riassunto: an.riassunto, problemi: an.problemi, osservazioni: an.osservazioni, netto_letto: an.netto_proposto, modello: an.modello } : null;
+    var nettoEsatto = an && an.dati && an.dati.netto_esatto !== null && an.dati.netto_esatto !== undefined && Math.abs(an.dati.netto_esatto - netto) < 1 ? an.dati.netto_esatto : '';
+    esegui(bottone, 'caricaDefinitiva', { mese: stato.dati.mese, nome_file: stato.pdfDefinitiva.nome, base64: stato.pdfDefinitiva.base64, netto_definitivo: netto, netto_esatto: nettoEsatto, analisi_ia: sintesi, ferie_residue: f.ferie_residue.value.trim(), permessi_residui: f.permessi_residui.value.trim() })
+      .then(function (r) { chiudiModale(); stato.pdfDefinitiva = null; stato.analisiDefinitiva = null; avvisa('Busta definitiva caricata. Differenza: ' + fEuro(r.differenza) + (r.differenza ? (r.conguaglio_applicato ? ' (in conguaglio nella prossima busta)' : ' (arrotondamento: nessun conguaglio)') : ''), 'ok'); modaleWhatsApp('Busta definitiva caricata', 'Ora avvisa ' + nomeLav() + ' sul gruppo WhatsApp.', r.whatsapp); return ricaricaTutto(); }).catch(mostraErrore);
+  }
+
+  // ------------------------------------------------------------------ IMPOSTAZIONI
+  function caricaImpostazioni() {
+    $('#scheda-impostazioni').innerHTML = '<div class="caricando">Caricamento…</div>';
+    chiama('impostazioni', {}).then(function (r) { if (!r || r.ok === false) { mostraErrore(new Error((r && r.errore) || 'Errore')); return; } stato.impostazioni = r; renderImpostazioni(); }).catch(mostraErrore);
+  }
+
+  function renderImpostazioni() {
+    var i = stato.impostazioni, c = i.config, h = [];
+    var lav = (i.utenti || []).filter(function (u) { return u.ruolo === 'lavoratrice'; })[0];
+    h.push('<div class="carta"><h2>Rapporto di lavoro</h2>');
+    function r(et, v) { h.push('<div class="kv"><span class="et">' + esc(et) + '</span><span class="v">' + esc(v) + '</span></div>'); }
+    r('Lavoratrice', c.lavoratrice.nome + ' ' + c.lavoratrice.cognome); r('Datore di lavoro', c.datore.nome); r('CCNL e livello', c.ccnl + ' – ' + c.livello_descrizione); r('Inizio rapporto', fData(c.data_assunzione));
+    r('Orario', c.ore_settimanali + ' h/settimana, ' + GIORNI[(c.giorno_ordinario || 2) - 1] + ' ' + c.ora_inizio_ordinaria + '–' + c.ora_fine_ordinaria);
+    r('Paga oraria lorda', fEuro(c.paga.minimo + Math.max(0, c.paga.minimo_alla_assunzione + c.paga.superminimo_alla_assunzione - c.paga.minimo)) + ' (minimo CCNL ' + fEuro(c.paga.minimo) + ' + superminimo)');
+    r('Trattenute orarie a carico della lavoratrice', 'INPS ' + fEuro(c.trattenute.inps_fasce[c.trattenute.inps_fasce.length - 1].quota) + ' + Cas.Sa.Colf ' + fEuro(c.trattenute.cassacolf_ora));
+    var mg = c.maggiorazioni || {}, acc = mg.accordo_famiglia && mg.accordo_famiglia.attivo !== false ? mg.accordo_famiglia : null;
+    r('Maggiorazioni', acc
+      ? '+' + Math.round((acc.serale || 0) * 100) + ' % dalle ' + (acc.serale_dalle || '20:00') + ' alle ' + (acc.serale_fino || '08:00') + ' su ogni turno (anche l\'ordinario spostato in serata), +' + Math.round((acc.festivo || 0) * 100) + ' % domenica e festivi; per il resto come CCNL; dove il CCNL dà di più vale il CCNL. Accordo con ' + esc(c.lavoratrice.nome) + ', comunicato allo studio.'
+      : 'Come CCNL: notturno +' + Math.round((mg.notturno_ordinario || 0) * 100) + ' %, straordinario +' + Math.round((mg.straordinario_diurno || 0) * 100) + '/' + Math.round((mg.straordinario_notturno || 0) * 100) + ' %, domenica e festivi +' + Math.round((mg.domenica_festivo || 0) * 100) + ' %');
+    r('Ferie e permessi', fOre(c.ferie_ore_anno) + ' e ' + fOre(c.permessi_ore_anno) + ' all\'anno'); r('Festività', fOre(c.festivita_ore) + ' ciascuna, anche se non cade nel giorno di lavoro');
+    r('Tredicesima', 'La calcola e la comunica lo Studio Pagani; si paga entro dicembre, a parte rispetto alla busta provvisoria');
+    r('Configurazione valida dal', fData(c.valido_dal));
+    h.push('<p class="nota-piccola">I parametri contrattuali (minimi CCNL, tabelle INPS) si aggiornano a gennaio nel file di configurazione o aggiungendo una versione nella scheda Config del Foglio.</p></div>');
+
+    h.push('<div class="carta"><h2>Dati modificabili</h2><form id="form-impostazioni">');
+    h.push('<label>IBAN di ' + esc(c.lavoratrice.nome) + ' (per il bonifico)</label><input type="text" name="iban_lav" value="' + esc(c.lavoratrice.iban || '') + '" placeholder="IT…">');
+    h.push('<label>Giorno del mese entro cui pagare</label><input type="number" name="giorno_pagamento" min="1" max="28" value="' + esc(c.giorno_pagamento) + '">');
+    h.push('<div class="scelta"' + (window.ADATTATORE ? ' style="display:none"' : '') + '><input type="checkbox" name="modalita_test" id="chk-test"' + (c.modalita_test ? ' checked' : '') + '><label for="chk-test" style="margin:0">Modalità prova: l\'email allo studio va solo ai genitori con [TEST]</label></div>');
+    h.push('<div class="scelta"><input type="checkbox" name="bonifico_attivo" id="chk-bon"' + (c.bonifico && c.bonifico.attivo ? ' checked' : '') + '><label for="chk-bon" style="margin:0">Mostra il pulsante «Prepara bonifico»</label></div>');
+    h.push('<button class="btn btn-primario" data-azione="salva-impostazioni" data-lav="' + esc(lav ? lav.id : '') + '">Salva</button></form></div>');
+
+    h.push('<div class="carta"><h2>Persone</h2><p class="sotto">Tutti aprono lo stesso indirizzo e scelgono il proprio nome.</p>');
+    (i.utenti || []).forEach(function (u) {
+      h.push('<div class="riga statica"><div class="sx"><div class="quando">' + esc(u.nome) + (u.attivo === 'no' ? ' <span class="etichetta rosso">disattivato</span>' : '') + '</div><div class="cosa">' + (u.email ? esc(u.email) : 'nessuna email') + '</div></div></div>');
+    });
+    h.push('<div class="copia"><div><span class="et">Indirizzo dell\'app</span><span class="valore">' + esc(i.url_app || '(non ancora pubblicata)') + '</span></div>' + (i.url_app ? '<button class="btn btn-piccolo" data-azione="copia" data-testo="' + esc(i.url_app) + '">Copia</button>' : '') + '</div></div>');
+
+    h.push('<div class="carta"><details><summary>Festività ' + esc(i.festivita.anno) + '</summary>' + i.festivita.lista.map(function (f) { return '<div class="riga statica"><div class="sx">' + esc(fDataEstesa(f.data)) + '</div><div class="dx" style="font-weight:400">' + esc(f.nome) + '</div></div>'; }).join('') + '</details>');
+    h.push('<details><summary>Festività ' + esc(i.festivita.anno + 1) + '</summary>' + i.festivita.prossimo_anno.map(function (f) { return '<div class="riga statica"><div class="sx">' + esc(fDataEstesa(f.data)) + '</div><div class="dx" style="font-weight:400">' + esc(f.nome) + '</div></div>'; }).join('') + '</details></div>');
+
+    var emailLav = c.lavoratrice.email || '', emailGen = c.email.genitori || '';
+    var ccExtra = (c.email.studio_cc || []).filter(function (x) { return x !== emailGen && x !== emailLav; });
+    h.push('<div class="carta"><h2>Email</h2><form id="form-email">' +
+      '<label>Email di ' + esc(c.lavoratrice.nome) + '</label><input type="email" name="email_lav" value="' + esc(emailLav) + '" placeholder="benedetta@…">' +
+      '<label>Email dei genitori (promemoria e modalità prova)</label><input type="email" name="genitori" value="' + esc(emailGen) + '">' +
+      '<label>Studio: referente</label><input type="text" name="studio_referente" value="' + esc(c.email.studio_referente || '') + '" placeholder="es. Roberta Rosafio">' +
+      '<label>Studio: email</label><input type="email" name="studio_a" value="' + esc(c.email.studio_a || '') + '">' +
+      '<h3 style="margin:14px 0 4px">In copia nelle email riepilogative allo studio</h3>' +
+      '<div class="scelta"><input type="checkbox" name="cc_genitori" id="cc-gen"' + ((c.email.studio_cc || []).indexOf(emailGen) >= 0 && emailGen ? ' checked' : '') + '><label for="cc-gen" style="margin:0">Genitori' + (emailGen ? ' (' + esc(emailGen) + ')' : '') + '</label></div>' +
+      '<div class="scelta"><input type="checkbox" name="cc_lav" id="cc-lav"' + (c.email.studio_cc_lavoratrice !== false ? ' checked' : '') + '><label for="cc-lav" style="margin:0">' + esc(c.lavoratrice.nome) + (emailLav ? ' (' + esc(emailLav) + ')' : ' (inserisci la sua email qui sopra)') + '</label></div>' +
+      ccExtra.map(function (x, n) { return '<div class="scelta"><input type="checkbox" name="cc_extra" value="' + esc(x) + '" id="cc-x' + n + '" checked><label for="cc-x' + n + '" style="margin:0">' + esc(x) + '</label></div>'; }).join('') +
+      '<div id="cc-nuovi"></div>' +
+      '<div class="copia"><div><span class="et">Aggiungi un indirizzo in copia</span><input type="email" name="nuovo_cc" placeholder="nome@esempio.it" style="margin-top:4px"></div><button class="btn btn-piccolo" data-azione="aggiungi-cc">Aggiungi</button></div>' +
+      '<button class="btn btn-primario" data-azione="salva-email" data-lav="' + esc(lav ? lav.id : '') + '">Salva email</button></form>' +
+      (c.whatsapp_gruppo ? '<p class="nota-piccola"><a href="' + esc(c.whatsapp_gruppo) + '" target="_blank" rel="noopener">Gruppo WhatsApp</a> (invio, correzioni, busta provvisoria, pagamento, definitiva e documenti passano da qui con «Manda sul gruppo WhatsApp»; allo studio va l\'email)</p>' : '') + '</div>');
+    if (c.modalita_test && eGenitore()) h.push('<div class="carta"><h2>Dati di prova</h2><p class="sotto">Prima di partire davvero: cancella turni, assenze, spese, mesi, buste paga e documenti inseriti per provare l\'app (anche i PDF su Drive). Persone e impostazioni restano. Disponibile solo in modalità prova.</p><button class="btn btn-rosso" data-azione="azzera-dati-di-prova">Azzera tutti i dati di prova</button></div>');
+    h.push('<div class="carta"><details><summary>Chiusura del rapporto</summary><p class="sotto">Calcola le ore con recupero concordato ancora da pagare (solo quelle chieste dalla famiglia) e, se vuoi, manda il conteggio allo studio.</p><label>Data di cessazione</label><input type="date" id="data-cessazione" value="' + esc(stato.boot.oggi) + '"><button class="btn" data-azione="calcola-cessazione">Calcola conteggio</button><div id="esito-cessazione"></div></details></div>');
+    $('#scheda-impostazioni').innerHTML = h.join('');
+  }
+
+  function salvaImpostazioni(bottone) {
+    var f = $('#form-impostazioni'), i = stato.impostazioni;
+    var modifiche = { giorno_pagamento: parseInt(f.giorno_pagamento.value, 10) || 5, modalita_test: f.modalita_test.checked, bonifico: { attivo: f.bonifico_attivo.checked } };
+    var lavId = bottone.dataset.lav;
+    var catena = Promise.resolve();
+    if (lavId) catena = catena.then(function () { return esegui(null, 'salvaUtente', { id: lavId, iban: f.iban_lav.value.replace(/\s+/g, '').toUpperCase() }); });
+    else modifiche.lavoratrice = { iban: f.iban_lav.value.replace(/\s+/g, '').toUpperCase() };
+    bottone.classList.add('caricamento');
+    catena.then(function () { return esegui(null, 'salvaImpostazioni', { valido_dal: i.config.valido_dal, modifiche: modifiche }); })
+      .then(function () { bottone.classList.remove('caricamento'); avvisa('Impostazioni salvate', 'ok'); stato.impostazioni = null; caricaImpostazioni(); return ricaricaTutto(); })
+      .catch(function (e) { bottone.classList.remove('caricamento'); mostraErrore(e); });
+  }
+
+
+  function azzeraDatiDiProva(bottone) {
+    chiediNota('Azzera i dati di prova', 'Cancella tutto quello che è stato inserito per provare (turni, assenze, spese, mesi, buste, documenti e i PDF su Drive). Non si può annullare. Scrivi CANCELLA per confermare.', true).then(function (parola) {
+      if (parola === null) return;
+      esegui(bottone, 'azzeraDatiDiProva', { conferma: parola }).then(function (r) {
+        avvisa('Dati di prova cancellati (' + Object.keys(r.righe).reduce(function (n, k) { return n + r.righe[k]; }, 0) + ' righe, ' + r.file_cestinati + ' file su Drive).', 'ok');
+        stato.buste = null; stato.documenti = null; stato.boot = null; stato.impostazioni = null;
+        return avvia();
+      }).catch(mostraErrore);
+    });
+  }
+
+  function salvaEmail(bottone) {
+    var f = $('#form-email'), i = stato.impostazioni;
+    var genitori = f.genitori.value.trim();
+    var extra = $$('#form-email input[name=cc_extra]:checked').map(function (x) { return x.value; });
+    var cc = (f.cc_genitori.checked && genitori ? [genitori] : []).concat(extra);
+    var modifiche = { email: { genitori: genitori, studio_referente: f.studio_referente.value.trim(), studio_a: f.studio_a.value.trim(), studio_cc: cc, studio_cc_lavoratrice: f.cc_lav.checked } };
+    var lavId = bottone.dataset.lav, emailLav = f.email_lav.value.trim();
+    var catena = Promise.resolve();
+    if (lavId) catena = catena.then(function () { return esegui(null, 'salvaUtente', { id: lavId, email: emailLav }); });
+    else modifiche.lavoratrice = { email: emailLav };
+    bottone.classList.add('caricamento');
+    catena.then(function () { return esegui(null, 'salvaImpostazioni', { valido_dal: i.config.valido_dal, modifiche: modifiche }); })
+      .then(function () { bottone.classList.remove('caricamento'); avvisa('Email salvate', 'ok'); stato.impostazioni = null; caricaImpostazioni(); return ricaricaTutto(); })
+      .catch(function (e) { bottone.classList.remove('caricamento'); mostraErrore(e); });
+  }
+
+  function aggiungiCc() {
+    var f = $('#form-email'), v = f.nuovo_cc.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { avvisa('Scrivi un indirizzo email valido.', 'errore'); return; }
+    if ($$('#form-email input[name=cc_extra]').some(function (x) { return x.value.toLowerCase() === v.toLowerCase(); })) { avvisa('Indirizzo già in elenco.', 'errore'); return; }
+    var n = $$('#form-email input[name=cc_extra]').length;
+    $('#cc-nuovi').insertAdjacentHTML('beforeend', '<div class="scelta"><input type="checkbox" name="cc_extra" value="' + esc(v) + '" id="cc-n' + n + '" checked><label for="cc-n' + n + '" style="margin:0">' + esc(v) + '</label></div>');
+    f.nuovo_cc.value = '';
+    avvisa('Aggiunto: premi «Salva email» per confermare.', 'ok');
+  }
+
+
+  function calcolaCessazione(bottone) {
+    var data = $('#data-cessazione').value;
+    esegui(bottone, 'chiudiRapporto', { data_cessazione: data, invia_email: false }).then(function (r) {
+      var c = r.conteggio;
+      $('#esito-cessazione').innerHTML = '<div class="avviso blu">Ore da recuperare non ancora recuperate: da pagare <b>' + esc(fOre(c.ore_da_pagare)) + '</b> (chieste dalla famiglia), non pagate <b>' + esc(fOre(c.ore_non_pagate)) + '</b> (chieste da ' + esc(nomeLav()) + ').</div><button class="btn btn-rosso" data-azione="invia-cessazione" data-data="' + esc(data) + '">Registra la cessazione e invia il conteggio allo studio</button>';
+    }).catch(mostraErrore);
+  }
+
+  // ------------------------------------------------------------------ gestione eventi (delegata)
+  document.addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-azione]'); if (!el) return;
+    var az = el.dataset.azione, d = stato.dati;
+    switch (az) {
+      case 'chiudi-modale': chiudiModale(); break;
+      case 'ricarica': avvia(); break;
+      case 'mese-prec': caricaMese(aggMesi(stato.mese, -1)); break;
+      case 'mese-succ': caricaMese(aggMesi(stato.mese, 1)); break;
+      case 'vai-mese': vaiA('mese'); break;
+      case 'fatto': registraFatto(el); break;
+      case 'orario-diverso': modaleTurno(null, 'Orario diverso'); break;
+      case 'ore-extra': modaleTurno({ tipo: 'aggiuntivo', data: stato.boot.oggi }, 'Aggiungi ore extra'); break;
+      case 'nuovo-recupero': modaleTurno({ tipo: 'recupero', data: stato.boot.oggi }, 'Registra un recupero'); break;
+      case 'modifica-turno': if (d && d.puo_modificare) modaleTurno(d.turni.filter(function (t) { return t.id === el.dataset.id; })[0], 'Modifica turno'); else avvisa('Il mese non è più modificabile.'); break;
+      case 'salva-turno': salvaTurnoDaForm(el); break;
+      case 'elimina-turno': eliminaRecord(el, 'eliminaTurno', el.dataset.id, 'Turno'); break;
+      case 'non-fatto': modaleNonFatto(); break;
+      case 'scelta-assenza': modaleAssenza(null, el.dataset.causa === 'altro' ? 'permesso_retribuito' : el.dataset.causa); break;
+      case 'modifica-assenza': if (d && d.puo_modificare) modaleAssenza(d.assenze.filter(function (a) { return a.id === el.dataset.id; })[0]); else avvisa('Il mese non è più modificabile.'); break;
+      case 'salva-assenza': salvaAssenzaDaForm(el); break;
+      case 'elimina-assenza': eliminaRecord(el, 'eliminaAssenza', el.dataset.id, 'Giorno non lavorato'); break;
+      case 'nuova-spesa': modaleSpesa(null, el.dataset.tipo); break;
+      case 'modifica-spesa': if (d && d.puo_modificare) modaleSpesa(d.spese.voci.filter(function (s) { return s.id === el.dataset.id; })[0]); else avvisa('Il mese non è più modificabile.'); break;
+      case 'salva-spesa': salvaSpesaDaForm(el); break;
+      case 'elimina-spesa': eliminaRecord(el, 'eliminaSpesa', el.dataset.id, 'Spesa'); break;
+      case 'invia-mese': inviaMese(el); break;
+      case 'invia-mese-forzato': inviaMese(el, true); break;
+      case 'accesso-genitore': ev.preventDefault(); chiudiModale(); stato.k = ''; try { localStorage.removeItem(CHIAVE_K); } catch (e2) { } mostraAccesso(''); break;
+      case 'scegli-persona': scegliPersona(el.dataset.id); break;
+      case 'approva-mese': approvaMese(el); break;
+      case 'chiedi-correzione': chiediCorrezione(el); break;
+      case 'riapri-mese': riapriMese(el); break;
+      case 'conguaglio-manuale': modaleConguaglioManuale(); break;
+      case 'salva-conguaglio': (function () { var f = $('#form-conguaglio'); esegui(el, 'impostaConguaglio', { mese: d.mese, importo: numero(f.importo.value), nota: f.nota.value }).then(function () { chiudiModale(); avvisa('Conguaglio salvato', 'ok'); return ricaricaTutto(); }).catch(mostraErrore); })(); break;
+      case 'conferma-pagamento': modalePagamento(); break;
+      case 'salva-pagamento': salvaPagamento(el); break;
+      case 'prepara-bonifico': preparaBonifico(el); break;
+      case 'scarica-xml': if (stato.xmlBonifico) scarica(stato.xmlBonifico.nome, stato.xmlBonifico.xml, 'application/xml'); break;
+      case 'copia': copia(el.dataset.testo); break;
+      case 'apri-busta': apriBustaIntera(); break;
+      case 'carica-definitiva': modaleDefinitiva(); break;
+      case 'salva-definitiva': salvaDefinitiva(el); break;
+      case 'carica-buste': esegui(el, 'bustePaga', {}).then(function (r) { stato.buste = r.buste; $('#lista-buste').innerHTML = htmlBuste(r.buste); }).catch(mostraErrore); break;
+      case 'carica-documenti': esegui(el, 'documenti', {}).then(function (r) { stato.documenti = r.documenti; $('#lista-documenti').innerHTML = htmlDocumenti(r.documenti); }).catch(mostraErrore); break;
+      case 'nuovo-documento': modaleDocumento(); break;
+      case 'salva-documento': salvaDocumento(el); break;
+      case 'elimina-documento': conferma('Eliminare questo documento?', 'Elimina', 'btn-rosso').then(function (si) { if (si) esegui(el, 'eliminaDocumento', { id: el.dataset.id }).then(function () { avvisa('Documento eliminato', 'ok'); stato.documenti = null; return ricaricaTutto(); }).catch(mostraErrore); }); break;
+      case 'scarica-file': if (window.ADATTATORE) window.ADATTATORE.scaricaFile(el.dataset.id, el.dataset.nome).then(function () { avvisa('File pronto', 'ok'); }).catch(mostraErrore); break;
+      case 'posta-inviata': if (window.ADATTATORE) window.ADATTATORE.segnaInviata(el.dataset.id).then(function () { avvisa('Segnata come inviata', 'ok'); renderPosta(); }).catch(mostraErrore); break;
+      case 'posta-allegato': if (window.ADATTATORE) window.ADATTATORE.scaricaFile(el.dataset.id, el.dataset.nome).then(function () { avvisa('Allegato pronto', 'ok'); }).catch(mostraErrore); break;
+      case 'salva-impostazioni': salvaImpostazioni(el); break;
+      case 'salva-email': salvaEmail(el); break;
+      case 'aggiungi-cc': aggiungiCc(); break;
+      case 'calcola-cessazione': calcolaCessazione(el); break;
+      case 'azzera-dati-di-prova': azzeraDatiDiProva(el); break;
+      case 'invia-cessazione': conferma('Registrare la cessazione del rapporto al ' + fData(el.dataset.data) + ' e inviare il conteggio allo studio?', 'Invia', 'btn-rosso').then(function (si) { if (si) esegui(el, 'chiudiRapporto', { data_cessazione: el.dataset.data, invia_email: true }).then(function () { avvisa('Conteggio inviato allo studio.', 'ok'); }).catch(mostraErrore); }); break;
+    }
+  });
+
+  $('#modale').addEventListener('click', function (ev) { if (ev.target === this) chiudiModale(); });
+  // Nessun modulo deve mai "inviarsi" da solo (ricaricherebbe la pagina): tutto passa dai pulsanti con data-azione.
+  document.addEventListener('submit', function (ev) { ev.preventDefault(); });
+  document.addEventListener('toggle', function (ev) { if (ev.target.querySelector && ev.target.querySelector('#busta-box')) adattaBusta(); }, true);
+
+  window.addEventListener('ore-benedetta:dati', function () { if (stato.boot && !$('#modale').classList.contains('attivo')) ricaricaTutto(); });
+
+  // ------------------------------------------------------------------ partenza
+  stato.k = leggiCodice();
+  avvia(); // senza codice l'app prova l'accesso aperto (Benedetta); se non è attivo mostra la schermata del link
+})();
+</script>
+
+</body>
+</html>
