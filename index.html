@@ -976,7 +976,7 @@
       var d = r.dati;
       var h = '<p class="sotto">Copia i dati nell\'internet banking, oppure scarica il file XML da caricare in banca. L\'app non esegue pagamenti.</p>';
       function c(et, v) { return '<div class="copia"><div><span class="et">' + esc(et) + '</span><span class="valore">' + esc(v || '—') + '</span></div>' + (v ? '<button class="btn btn-piccolo" data-azione="copia" data-testo="' + esc(v) + '">Copia</button>' : '') + '</div>'; }
-      h += c('Beneficiario', d.beneficiario) + c('IBAN', d.iban) + c('Importo', d.importo_testo) + c('Causale', d.causale) + c('Data esecuzione proposta', fData(d.data_esecuzione));
+      h += c('Beneficiario', d.beneficiario) + c('IBAN', d.iban) + c('Email di ' + nomeLav(), d.email) + c('Importo', d.importo_testo) + c('Causale', d.causale) + c('Data esecuzione proposta', fData(d.data_esecuzione));
       if (!d.iban_valido) h += '<div class="avviso rosso">Manca (o non è valido) l\'IBAN di ' + esc(nomeLav()) + ': inseriscilo nelle Impostazioni.</div>';
       if (r.xml) { stato.xmlBonifico = { nome: r.nome_file, xml: r.xml }; h += '<button class="btn btn-primario" data-azione="scarica-xml">Scarica file XML (SEPA pain.001)</button><div class="nota-piccola">Formato da verificare con Banca Sella: se non è accettato, usa i dati qui sopra.</div>'; }
       else if (r.errore_xml) h += '<div class="avviso">File XML non generato: ' + esc(r.errore_xml) + '</div>';
